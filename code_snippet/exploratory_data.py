@@ -4,7 +4,7 @@ df.describe()
 df.corr()
 
 # GROUP BY
-print(df.groupby(['State']).sum())
+df.groupby(['State']).sum()
 
 # TOTAL & CONT'
 total = df.apply(np.sum, axis=0)
@@ -16,4 +16,4 @@ plot = df.plot()
 boxplot = df.boxplot()
 
 # PAIR PLOT
-pd.plotting.scatter_matrix(data)
+pairplot = pd.plotting.scatter_matrix(data)
