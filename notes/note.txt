@@ -1,0 +1,27 @@
+Step by step 
+- Check NaN count
+- Check Unique value
+
+- Check if features is normally distributed:
+	- create histogram from data => is similar to normal distribution?
+	- check skewness and kurtosis => near 1
+
+- Detect Outlier
+	- Create Boxplot to indicate outlier
+	- Z-Score > 2.5 or 3 or 3.5
+
+- Feature Selection
+	- Filter by correlation
+	  use features corr > 0.5
+	  discard if features correlate each other
+	- Wrapper Method
+		- Backward Elimination
+		  remove the worst performing features
+		  with sm.OLS pvalues
+		- Recursive Feature Elimination
+		  rank feature according to importance with recursively removing non relevant feature
+		  with RFE model
+	- Embed Method
+	  penalize its coefficient if the feature is irrelevant
+	  Lasso Regularization
+
