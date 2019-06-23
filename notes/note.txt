@@ -1,17 +1,21 @@
 Step by step 
+- Check data info
 - Check NaN count
 - Check Unique value
+  to find out constan feature (1 unique value)
 
 - Check if features is normally distributed:
 	- create histogram from data => is similar to normal distribution?
 	- check skewness and kurtosis => near 1
 
 - Detect Outlier
+	- Create Distplot to indicate outlier
 	- Create Boxplot to indicate outlier
 	- Z-Score > 2.5 or 3 or 3.5
 
 - Feature Selection
 	- Filter by correlation
+	  before check corr, clean up data (zero value, )
 	  use features corr > 0.5
 	  discard if features correlate each other
 	- Wrapper Method
@@ -25,3 +29,10 @@ Step by step
 	  penalize its coefficient if the feature is irrelevant
 	  Lasso Regularization
 
+- Handling Categorical Feature
+	- Create LabelEncoder (0, 1, 2, 3, 4, ...)
+	- Create OneHotEncoder / pd.get_dummies (0, 1)
+	
+- Handling Missing Data
+
+- check boxplot for categorical feature vs target col

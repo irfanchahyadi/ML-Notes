@@ -1,1 +1,9 @@
 - model.pvalue for selecting (remove non performing) feature
+- Q -> Q chapter of the Standford MOOC
+  https://lagunita.stanford.edu/courses/OLI/StatReasoning/Open/courseware/eda_er/_m5_case_III/
+- C -> Q chapter of the Standford MOOC
+  https://lagunita.stanford.edu/courses/OLI/StatReasoning/Open/courseware/eda_er/_m3_case_I/
+- Handling features which correlate each other
+- Handling outlier
+- sns.factorplot()
+- lambda with if condition
