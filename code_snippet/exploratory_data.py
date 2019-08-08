@@ -24,6 +24,9 @@ df.TargetCol.groupby(df.col1).agg([np.mean, 'count'])
 grouped = df.groupby(['col1', 'TargetCol']).size().reset_index()
 pivoted = grouped.pivot(index='col1', columns='TargetCol')
 
+# FLATTEN MULTI INDEX
+flat = pd.DataFrame(df.to_records())
+
 # TOTAL & CONT'
 total = df.apply(np.sum, axis=0)
 cont = df.apply(lambda x: x/sum(x), axis=0)
@@ -49,10 +52,10 @@ g.map(sns.countplot, 'catcol')
 g.map(sns.barplot, 'catcol', 'numcol')
 
 # CORRELATION MATRIX PLOT
-cor = sns.heatmap(df.corr(), cmap=plt.cm.Reds, annot=True)
-cor = sns.heatmap(corr[abs(corr) > 0.5], annot=True, annot_kws={'size': 8}, square=True, cmap=plt.cm.viridis)
-corr_plot = plt.matshow(data.corr())
-data.corr().style.background_gradient(cmap='coolwarm').set_precision(2)
+corrplot = sns.heatmap(df.corr(), cmap=plt.cm.Reds, annot=True)
+corrplot = sns.heatmap(corr[abs(corr) > 0.5], annot=True, annot_kws={'size': 8}, square=True, cmap=plt.cm.viridis)
+corrplot = plt.matshow(df.corr())
+df.corr().style.background_gradient(cmap='coolwarm').set_precision(2)
 
 # PAIR PLOT TO ALL NUMERIC FEATURES
 df_num = df.select_dtypes(['int64', 'float64'])
