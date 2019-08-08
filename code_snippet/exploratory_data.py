@@ -6,7 +6,7 @@ df.iloc[50:70, 5:6]				# return Series/DataFrame from row 50:70 column 5 and 6
 
 # DESCRIBE DATA
 df.info()
-df.describe()
+df.describe(include='all')
 df.shape
 df.corr()
 df.nunique()
