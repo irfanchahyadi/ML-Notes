@@ -3,6 +3,9 @@ df.at[0, 'col1']				# return single value from row 0 column col1
 df.iat[0, 0]					# return single value from row 0 column 0
 df.loc[50:70, ['col1','col2']]	# return Series/DataFrame from row 50:70 column col1 and col2
 df.iloc[50:70, 5:6]				# return Series/DataFrame from row 50:70 column 5 and 6
+df['col1']                      # return series col1
+df.col1                         # return series col1
+df[['col1']]                    # return DataFrame consist col1
 
 # DESCRIBE DATA
 df.info()
@@ -12,6 +15,7 @@ df.corr()
 df.nunique()
 df.isnull().sum()				# df.isnull() = df.isna()
 df['col1'].value_counts()		# frequency categorical feature
+df.sample(10)                   # return random sample 10 rows
 
 # SORT BY
 df.sort_values(['col1'], ascending=True)
@@ -19,6 +23,9 @@ df.sort_values(['col1'], ascending=True)
 # GROUP BY
 df.groupby(['col1']).sum()
 df.TargetCol.groupby(df.col1).agg([np.mean, 'count'])
+size() --> series
+sum(), count(), mean(), min(), median(), nunique() --> DataFrame
+np.sum, np.median, np.min, np.max, np.std
 
 # PIVOT
 grouped = df.groupby(['col1', 'TargetCol']).size().reset_index()
