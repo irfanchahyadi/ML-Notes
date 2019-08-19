@@ -12,6 +12,9 @@ dx = df[['col1', 'col2']].copy()
 # DROP COLUMN
 df.drop(['col1'], axis=1, inplace=True)
 
+# DROP ROW CONSIST NA
+df.dropna()
+
 # CREATE COLUMN
 df['newcol'] = 1
 
