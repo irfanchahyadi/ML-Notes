@@ -56,5 +56,10 @@ for feature in individual_features:
         corr_dict[feature.columns[0]] = corr_temp
 relevant_features3 = pd.Series(corr_dict)
 
+# IMPUTE WITH GROUP BY
+def impute_median(series):
+    return series.fillna(series.median())
+titanic.age = titanic.groupby(['sex', 'pclass'])['age'].transform(impute_median)
+
 # GET DUMMIES
 df = pd.get_dummies(df, columns=['col1'], prefix='col')
