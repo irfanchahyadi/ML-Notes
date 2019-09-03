@@ -40,11 +40,14 @@ cont = df.apply(lambda x: x/sum(x), axis=0)
 
 # PLOTTING
 plt.figure(figsize=(12,10))
-hist = df.hist(bins=50, figsize=(16, 10))
 plot = df.plot()
+hist = df.hist(bins=50, figsize=(16, 10))
+stripplot = sns.stripplot(x='col1', y='col2', data=df, jitter=True)
+swarmplot = sns.swarmplot(x='col1', y='col2', data=df)
 boxplot = df.boxplot()
 boxplot = df.boxplot(by='col1')			# group by categorical column col1
 boxplot = sns.boxplot(x='col1', y='TargetCol', data=df)
+violinplot = sns.violinplot(x='col1', y='col2', data=df)
 pairplot = pd.plotting.scatter_matrix(data)
 pairplot = sns.pairplot(df, x_vars=['col1'], y_vars='TargetCol')
 distplot = sns.distplot(df.TargetCol, bins=100)
