@@ -48,6 +48,7 @@ boxplot = df.boxplot()
 boxplot = df.boxplot(by='col1')			# group by categorical column col1
 boxplot = sns.boxplot(x='col1', y='TargetCol', data=df)
 violinplot = sns.violinplot(x='col1', y='col2', data=df)
+jointplot = sns.jointplot(x='col1', y='col2', data=df, kind='kde')
 pairplot = pd.plotting.scatter_matrix(data)
 pairplot = sns.pairplot(df, x_vars=['col1'], y_vars='TargetCol')
 distplot = sns.distplot(df.TargetCol, bins=100)
