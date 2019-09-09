@@ -20,8 +20,8 @@ Import
 ### Get Data
 Generate random data.
 ```python
-X = np.random.randn(100, 3)                # 100 x 3 random std normal dist array
-X = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 and stddev 2
+X = np.random.randn(100, 3)                  # 100 x 3 random std normal dist array
+X = np.random.normal(1, 2, size=(100, 3))    # 100 x 3 random normal with mean 1 and stddev 2
 
 from sklearn.datasets import make_regression, make_classification, make_blobs
 # generate 100 row data for regression with 10 feature but only 5 informative
@@ -36,14 +36,14 @@ X, y = make_blobs(n_samples=100, n_features=10, centers=3, cluster_std=1.0, rand
 Load sample data
 ```python
 from sklearn.datasets import load_boston, load_digits, load_iris
-d = load_boston()
-df = pd.DataFrame(d.data, columns=d.feature_names)
-df['TargetCol'] = d.target
+d = load_boston()                                        # load data
+df = pd.DataFrame(d.data, columns=d.feature_names)       # create dataframe with column name
+df['TargetCol'] = d.target                               # add TargetCol column
 ```
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4OTYxOTI3MDQsLTE2ODU0MTA4NjQsLT
+eyJoaXN0b3J5IjpbLTE1Nzg5MTE1OTcsLTE2ODU0MTA4NjQsLT
 QzMzM4NDAzMiw4NTcwMzgyNTMsLTcwODIwNTU2MCwxOTI5MjIz
 MzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5LC0xODQwMzM2OTcsMT
 YwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMDk2MzYwMTEsLTIwODkw
