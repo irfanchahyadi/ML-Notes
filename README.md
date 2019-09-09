@@ -11,7 +11,7 @@ Complete notes for performing Data Gathering, EDA, Preprocessing, Training ML mo
 ### Importer
 Import standard library for playing with data.
 ```python
-import numpy as np
+import numpy as np                 # 
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -22,7 +22,7 @@ Import
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMTQyMTEyOTYsMTYwODg2Mzg2OSwxMz
-Y1NjQxNTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2
-NDYxOF19
+eyJoaXN0b3J5IjpbLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNj
+U2NDE1NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0
+NjE4XX0=
 -->
