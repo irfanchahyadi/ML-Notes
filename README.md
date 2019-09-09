@@ -27,14 +27,14 @@ from sklearn.datasets import make_regression, make_classification, make_blobs
 # generate 100 row data for regression with 10 feature but only 5 informative with 0.0 noise
 X, y, coef = make_regression(n_samples=100, n_features=10, n_informative=5, noise=0.0, coef=True, random_state=42)
 # generate 100 row data for classification with 10 feature but only 5 informative with 0.0 noise
-X, y, coef = make_regression(n_samples=100, n_features=10, n_informative=5, noise=0.0, coef=True, random_state=42)
+X, y, coef = make_classification(n_samples=100, n_features=10, n_informative=5, n_classes=2, random_state=42)
 ```
 
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODA2MjI4NTIsLTQzMzM4NDAzMiw4NT
+eyJoaXN0b3J5IjpbLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NT
 cwMzgyNTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1
 MjQsODc4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMz
 Y1NjQxNTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2
