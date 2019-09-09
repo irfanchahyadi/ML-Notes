@@ -26,7 +26,7 @@ X = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 a
 from sklearn.datasets import make_regression, make_classification, make_blobs
 
 # generate 100 row data for regression with 10 feature but only 5 informative
-X, y, coef = make_regression(n_samples=100, n_features=10, n_informative=5, noise=0.0, coef=True, random_state=42)
+X, y = make_regression(n_samples=100, n_features=10, n_informative=5, noise=0.0, random_state=42)
 
 # generate 100 row data for classification with 10 feature but only 5 informative with 3 classes
 X, y = make_classification(n_samples=100, n_features=10, n_informative=5, n_classes=3, random_state=42)
@@ -39,9 +39,9 @@ X, y = make_blobs(n_samples=100, n_features=10, centers=3, cluster_std=1.0, rand
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MzE5Mzg1NTEsLTE2ODU0MTA4NjQsLT
-QzMzM4NDAzMiw4NTcwMzgyNTMsLTcwODIwNTU2MCwxOTI5MjIz
-MzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5LC0xODQwMzM2OTcsMT
-YwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMDk2MzYwMTEsLTIwODkw
-MTA0NzIsMTI3ODA2NDYxOF19
+eyJoaXN0b3J5IjpbLTg4ODQ0MzUyNiwtMTY4NTQxMDg2NCwtND
+MzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1NTYwLDE5MjkyMjMz
+NDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNj
+A4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYzNjAxMSwtMjA4OTAx
+MDQ3MiwxMjc4MDY0NjE4XX0=
 -->
