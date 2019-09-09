@@ -32,16 +32,16 @@ X, y, coef = make_regression(n_samples=100, n_features=10, n_informative=5, nois
 X, y = make_classification(n_samples=100, n_features=10, n_informative=5, n_classes=3, random_state=42)
 
 # generate 100 row data for clustering with 10 feature with 3 cluster
-X, y = make_blobs(n_samples=100, n_features=10, centers=3, cluster_std=1.0, random_state=None)
+X, y = make_blobs(n_samples=100, n_features=10, centers=3, cluster_std=1.0, random_state=42)
 ```
 
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTY0MTY1MTY3LC0xNjg1NDEwODY0LC00Mz
-MzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0
-NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MD
-g4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEw
-NDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbLTE2MzE5Mzg1NTEsLTE2ODU0MTA4NjQsLT
+QzMzM4NDAzMiw4NTcwMzgyNTMsLTcwODIwNTU2MCwxOTI5MjIz
+MzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5LC0xODQwMzM2OTcsMT
+YwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMDk2MzYwMTEsLTIwODkw
+MTA0NzIsMTI3ODA2NDYxOF19
 -->
