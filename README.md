@@ -22,15 +22,15 @@ Generate random data
 ```python
 X = np.random.randn(100, 3)                # 100 x 3 random std normal dist array
 X = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 and stddev 2
-from sklearn.datasets import make_regression, make_classification, make_clustering
-X, y, coef = 
+from sklearn.datasets import make_regression, make_classification, make_blobs
+X, y, coef = make_regression(n_samples=1000, n_features=10, n_informative=10, n_targets=1, bias=0.0, effective_rank=None, tail_strength=0.5, noise=0.0, shuffle=True, coef=False, random_state=None)
 ```
 
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcwNTUzOTUwNiw4NTcwMzgyNTMsLTcwOD
+eyJoaXN0b3J5IjpbLTIwNTg4MDgyOCw4NTcwMzgyNTMsLTcwOD
 IwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5
 LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMD
 k2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
