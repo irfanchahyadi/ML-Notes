@@ -18,13 +18,16 @@ import seaborn as sns                 # data visualization based on matplotlib
 ```
 Import 
 ### Get Data
-
+G
+```python
+np.random.randn(100,3)
+```
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3OD
-ExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2
-OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ
-==
+eyJoaXN0b3J5IjpbOTI0ODM4MDgyLDE5MjkyMjMzNDYsMTc4MT
+Y5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5
+LDEzNjU2NDE1NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMj
+c4MDY0NjE4XX0=
 -->
