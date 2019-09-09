@@ -22,7 +22,7 @@ Generate random data
 ```python
 X = np.random.randn(100, 3)                # 100 x 3 random std normal dist array
 X = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 and stddev 2
-from sklearn.datasets
+from sklearn.datasets import make_regression, make_classification, make_clustering
 X, y, coef = 
 ```
 
@@ -30,8 +30,8 @@ X, y, coef =
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzE1NzUzMzA5LDg1NzAzODI1MywtNzA4Mj
-A1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjks
-LTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOT
-YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbLTcwNTUzOTUwNiw4NTcwMzgyNTMsLTcwOD
+IwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5
+LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMD
+k2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
 -->
