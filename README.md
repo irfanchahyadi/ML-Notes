@@ -10,9 +10,10 @@ Complete notes for performing Data Gathering, EDA, Preprocessing, Training ML mo
 ## Preparation
 ### Importer
 ### Get Data
+#### AB
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM2NTY0MTU2OSwxMzA5NjM2MDExLC0yMD
-g5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbMjk1MjUwNjQ2LDEzNjU2NDE1NjksMTMwOT
+YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
