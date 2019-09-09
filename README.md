@@ -20,17 +20,18 @@ Import
 ### Get Data
 Generate random data
 ```python
-data = np.random.randn(100, 3)                # 100 x 3 random std normal dist array
-data = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 and stddev 2
-
+X = np.random.randn(100, 3)                # 100 x 3 random std normal dist array
+X = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 and stddev 2
+from sklearn.datasets
+X, y, coef = 
 ```
 
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MzYwMTM4NjUsODU3MDM4MjUzLC03MD
-gyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMy
-OSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMz
-A5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbMzE1NzUzMzA5LDg1NzAzODI1MywtNzA4Mj
+A1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjks
+LTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOT
+YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
