@@ -9,11 +9,15 @@ Complete notes for performing Data Gathering, EDA, Preprocessing, Training ML mo
 
 ## Preparation
 ### Importer
+```javascript
+// An highlighted block
+var foo = 'bar';
+```
 ### Get Data
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjY0ODE4MTU3LDEzNjU2NDE1NjksMTMwOT
-YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbLTkyMTk1ODMzMSwxMzY1NjQxNTY5LDEzMD
+k2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
 -->
