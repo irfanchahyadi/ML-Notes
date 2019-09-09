@@ -10,14 +10,16 @@ Complete notes for performing Data Gathering, EDA, Preprocessing, Training ML mo
 ## Preparation
 ### Importer
 ```python
-// An highlighted block
-var foo = 'bar';
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 ```
 ### Get Data
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTI3NjAxNTkwLDEzNjU2NDE1NjksMTMwOT
-YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbMTYwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMD
+k2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
 -->
