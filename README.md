@@ -1,5 +1,7 @@
 # ML-Notes
+Complete notes for 
+## Table of contents
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI3ODA2NDYxOF19
+eyJoaXN0b3J5IjpbLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
 -->
