@@ -18,16 +18,17 @@ import seaborn as sns                 # data visualization based on matplotlib
 ```
 Import 
 ### Get Data
-G
+Generate random normal distribution
 ```python
-np.random.randn(100,3)
+np.random.randn(100,3)                # 100 x 3 random normal dist array
 ```
+
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTI0ODM4MDgyLDE5MjkyMjMzNDYsMTc4MT
-Y5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5
-LDEzNjU2NDE1NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMj
-c4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3OD
+E2OTk1MjQsODc4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2
+OSwxMzY1NjQxNTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMT
+I3ODA2NDYxOF19
 -->
