@@ -24,16 +24,16 @@ X = np.random.randn(100, 3)                # 100 x 3 random std normal dist arra
 X = np.random.normal(1, 2, size=(100, 3))  # 100 x 3 random normal with mean 1 and stddev 2
 
 from sklearn.datasets import make_regression, make_classification, make_blobs
-# generate 1000 row data with 10 
-X, y, coef = make_regression(n_samples=1000, n_features=10, n_informative=3, noise=0.0, coef=False, random_state=None)
+# generate 1000 row data with 10 feature but only 5 informative, 
+X, y, coef = make_regression(n_samples=1000, n_features=10, n_informative=5, noise=0.0, coef=False, random_state=None)
 ```
 
 #### Abc
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4OTQ2MjM4OTYsODU3MDM4MjUzLC03MD
-gyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMy
-OSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMz
-A5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbLTQzMzM4NDAzMiw4NTcwMzgyNTMsLTcwOD
+IwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5
+LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMD
+k2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
 -->
