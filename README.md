@@ -9,7 +9,7 @@ Complete notes for performing Data Gathering, EDA, Preprocessing, Training ML mo
 
 ## Preparation
 ### Importer
-```javascript
+```python
 // An highlighted block
 var foo = 'bar';
 ```
@@ -18,6 +18,6 @@ var foo = 'bar';
 ## Exploratory Data Analysis
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkyMTk1ODMzMSwxMzY1NjQxNTY5LDEzMD
-k2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
+eyJoaXN0b3J5IjpbNTI3NjAxNTkwLDEzNjU2NDE1NjksMTMwOT
+YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
