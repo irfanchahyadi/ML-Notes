@@ -5,6 +5,10 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 	- [Importer](#Importer)
 	- [Get Data](#Get-Data)
 - [Exploratory Data Analysis](#Exploratory-Data-Analysis)
+	- [Indexing](#Indexing)
+	- [Describe](#Describe)
+	- [Aggregate](#Aggregate)
+	- [Plotting](#Plotting)
 
 
 ## Preparation
@@ -32,10 +36,8 @@ from
 import os                               # os interface, directory, path
 import blob                             # find file on directory with wildcard
 import pickle                           # save/load object on python into/from binary file
-
-
+import re                               # find regex pattern on string
 ```
-Import 
 ### Get Data
 Create DataFrame from list / dict.
 ```python
@@ -46,29 +48,29 @@ df = pd.DataFrame(a, columns=list('ab'), index=c)
 ```
 Load data from other source.
 ```python
-# read data from csv / excel file
+# Read data from CSV / Excel file
 df = pd.read_csv('data.csv', sep=',', index_col='col1', na_values='-', parse_dates=True)
 df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
 
-# read data from sql
+# Read data from SQL
 conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)
 query = 'select * from employee where name = %(name)s'
 df = pd.read_sql(query, conn, params={'name': 'value'})
 
-# read data from aws athena
+# Read data from AWS Athena
 conn  = pyathena.connect(aws_access_key_id=id, aws_secret_access_key=secret, s3_staging_dir=stgdir, region_name=region)
 query = 'select * from employee'
 df = pd.read_sql(query, conn)
 
-# read data from gspread
+# Read data from GSpread
 scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 client = gspread.authorize(creds)
 sheet = client.open('FileNameOnGDrive').get_worksheet(0)
-df = get_as_dataframe(sheet, usecols=list(range(10)))  # use additional gspread_dataframe lib
+df = get_as_dataframe(sheet, usecols=list(range(10)))       # use additional gspread_dataframe lib
 data = sheet.get_all_values()
 header = data.pop(0)
-df = pd.DataFrame(data, columns=header)                # only use gspread
+df = pd.DataFrame(data, columns=header)                     # only use gspread
 ```
 Generate random data.
 ```python
@@ -93,11 +95,35 @@ df = pd.DataFrame(d.data, columns=d.feature_names)         # create dataframe wi
 df['TargetCol'] = d.target                                 # add TargetCol column
 ```
 ## Exploratory Data Analysis
+### Indexing
+```python
+df.col1                                      # return series col1
+df['col1']                                   # same, return series col1
+df[['col1']]                                 # return dataframe consist only col1
+df.loc[5:10, ['col1','col2']]                # return dataframe from row 5:10 column col1 and col2
+df.head()                                    # return first 5 rows, df.tail() return last 5 rows
+df[df.col1 == 'abc']                         # conditional indexing, use ==, !=, >, <, >=, <=, .isnull()
+df[(df.col1 == 'abc') & (df.col2 == 'abc')]  # conditional indexing, use &, |
+```
+### Describe
+```python
+df.shape                                     # number of rows and cols
+df.info()                                    # info number of rows and cols, dtype each col, memory size
+df.describe(include='all')                   # statistical descriptive: unique,min, std, min, max, quartile
+df.corr()                                    # correlation matrix
+df.isnull().sum()                            # count null value each column, df.isnull() = df.isna()
+df.nunique()                                 # unique value each column
+df['col1'].value_counts()                    # frequency each value
+df.sample(10)                                # return random sample 10 rows
+df.sort_values(['col1'], ascending=True)     # sort by col1
+```
+### Aggregate
+### Plotting
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI0NDE4MTk2OSwtMTU3ODkxMTU5NywtMT
-Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
-NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
-E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
-NjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbMTQwMDcyNzEwLC0xNTc4OTExNTk3LC0xNj
+g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
+NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
+g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
+MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
 -->
