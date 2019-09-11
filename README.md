@@ -58,7 +58,8 @@ query = 'select * from employee where name = %(name)s'
 df = pd.read_sql(query, conn, params={'name': 'value'})
 
 # Read data from AWS Athena
-conn  = pyathena.connect(aws_access_key_id=id, aws_secret_access_key=secret, s3_staging_dir=stgdir, region_name=region)
+conn  = pyathena.connect(aws_access_key_id=id, aws_secret_access_key=secret, 
+                         s3_staging_dir=stgdir, region_name=region)
 query = 'select * from employee'
 df = pd.read_sql(query, conn)
 
@@ -109,21 +110,21 @@ df[(df.col1 == 'abc') & (df.col2 == 'abc')]  # conditional indexing, use &, |
 ```python
 df.shape                                     # number of rows and cols
 df.info()                                    # info number of rows and cols, dtype each col, memory size
-df.describe(include='all')                   # statistical descriptive: unique,min, std, min, max, quartile
+df.describe(include='all')                   # statistical descriptive: unique, mean, std, min, max, quartile
 df.corr()                                    # correlation matrix
 df.isnull().sum()                            # count null value each column, df.isnull() = df.isna()
 df.nunique()                                 # unique value each column
 df['col1'].value_counts()                    # frequency each value
 df.sample(10)                                # return random sample 10 rows
-df.sort_values(['col1'], ascending=True)     # sort by col1
+df.sort_values(['col1'], ascending=True)     # sort by col1 ascending
 ```
 ### Aggregate
 ### Plotting
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQwMDcyNzEwLC0xNTc4OTExNTk3LC0xNj
-g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
-NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
-g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
-MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbLTc4MTA4MjU2NSwtMTU3ODkxMTU5NywtMT
+Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
+NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
+E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
+NjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
