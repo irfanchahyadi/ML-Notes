@@ -1,5 +1,5 @@
 # ML-Notes
-Complete personal notes for performing Data Analysis, Preprocessing, and Training ML model.
+Complete personal notes for performing Data Analysis, Preprocessing, and Training ML model. For easy guideline and quick copy paste snippet to real work.
 ## Table of contents
 - [Preparation](#Preparation)
 	- [Importer](#Importer)
@@ -34,9 +34,10 @@ from
 %reload_ext dotenv                      # reload dotenv on jupyter notebook
 %dotenv                                 # load dotenv
 import os                               # os interface, directory, path
-import blob                             # find file on directory with wildcard
+import glob                             # find file on directory with wildcard
 import pickle                           # save/load object on python into/from binary file
 import re                               # find regex pattern on string
+import statsmodels.api as sm            # 
 ```
 ### Get Data
 Create DataFrame from list / dict.
@@ -54,6 +55,8 @@ df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
 
 # Read data from SQL
 conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)
+conn = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
+       SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')
 query = 'select * from employee where name = %(name)s'
 df = pd.read_sql(query, conn, params={'name': 'value'})
 
@@ -98,19 +101,27 @@ df['TargetCol'] = d.target                                 # add TargetCol colum
 ## Exploratory Data Analysis
 ### Indexing
 ```python
-df.col1                                      # return series col1
-df['col1']                                   # same, return series col1
+df.col1                                      # return series col1, easy way
+df['col1']                                   # return series col1, robust way
 df[['col1']]                                 # return dataframe consist only col1
 df.loc[5:10, ['col1','col2']]                # return dataframe from row 5:10 column col1 and col2
 df.head()                                    # return first 5 rows, df.tail() return last 5 rows
-df[df.col1 == 'abc']                         # conditional indexing, use ==, !=, >, <, >=, <=, .isnull()
-df[(df.col1 == 'abc') & (df.col2 == 'abc')]  # conditional indexing, use &, |
+df[df.col1 == 'abc']                         # filter by comparison, use ==, !=, >, <, >=, <=, .isnull()
+df[(df.col1 == 'abc') & (df.col2 == 'abc')]  # conditional filter, use &, |
+df[df.col1.isin(['a','b'])]                  # filter by is in list
+df[df.col1.isnull()]                         # filter by is null, otherwise use .notnull()
+
 ```
 ### Describe
 ```python
 df.shape                                     # number of rows and cols
+df.columns                                   # columns dataframe
+df.index                                     # index dataframe
+df.T                                         # transpose dataframe
 df.info()                                    # info number of rows and cols, dtype each col, memory size
 df.describe(include='all')                   # statistical descriptive: unique, mean, std, min, max, quartile
+df.skew()                                    # degree symetrical, 0 symmetry, + righthand longer, - lefthand longer
+df.kurt()                                    # 0 normal dist, + flatness, - peakedness
 df.corr()                                    # correlation matrix
 df.isnull().sum()                            # count null value each column, df.isnull() = df.isna()
 df.nunique()                                 # unique value each column
@@ -122,9 +133,9 @@ df.sort_values(['col1'], ascending=True)     # sort by col1 ascending
 ### Plotting
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc4MTA4MjU2NSwtMTU3ODkxMTU5NywtMT
-Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
-NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
-E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
-NjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbMjExNDY2OTQ1LC0xNTc4OTExNTk3LC0xNj
+g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
+NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
+g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
+MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
 -->
