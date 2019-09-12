@@ -22,6 +22,7 @@ import seaborn as sns                   # data visualization based on matplotlib
 
 # Connection to data
 import pymysql                          # connect to mysql database
+import pyodbc                           # connect to sql server database
 import pyathena                         # connect to aws athena
 import gspread                          # connect to gspread
 from oauth2client.service_account import ServiceAccountCredentials   # google auth
@@ -37,7 +38,7 @@ import os                               # os interface, directory, path
 import glob                             # find file on directory with wildcard
 import pickle                           # save/load object on python into/from binary file
 import re                               # find regex pattern on string
-import statsmodels.api as sm            # 
+import statsmodels.api as sm            # statistic lib for python
 ```
 ### Get Data
 Create DataFrame from list / dict.
@@ -55,7 +56,7 @@ df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
 
 # Read data from SQL
 conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)       # mysql
-conn = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
+conn  = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
        SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')         # sql server
 query = 'select * from employee where name = %(name)s'
 df = pd.read_sql(query, conn, params={'name': 'value'})
@@ -101,19 +102,17 @@ df['TargetCol'] = d.target                                 # add TargetCol colum
 ## Exploratory Data Analysis
 ### Indexing
 ```python
-df.col1                                      # return series col1, easy way
-df['col1']                                   # return series col1, robust way
-df[['col1', 'col2']]                         # return dataframe consist only col1
-df.loc[5:10, ['col1','col2']]                # return dataframe from row 5:10 column col1 and col2
-df.iloc[5:10, 3:5]                           # return dataframe from row 5:10 column 3:5
-df.head()                                    # return first 5 rows, df.tail() return last 5 rows
-df[df.col1 == 'abc']                         # filter by comparison, use ==, !=, >, <, >=, <=
-df[(df.col1 == 'abc') & (df.col2 == 'abc')]  # conditional filter, use &(and), |(or), ~(not), ^(xor), .any(), .all()
-df[df.col1.isin(['a','b'])]                  # filter by is in list
-df[df.col1.isnull()]                         # filter by is null, otherwise use .notnull()
-df.filter(regex = 'pattern')                 # filter by regex pattern
-df.
-
+df.col1                                  # return series col1, easy way
+df['col1']                               # return series col1, robust way
+df[['col1', 'col2']]                     # return dataframe consist only col1
+df.loc[5:10, ['col1','col2']]            # return dataframe from row 5:10 column col1 and col2
+df.iloc[5:10, 3:5]                       # return dataframe from row 5:10 column 3:5
+df.head()                                # return first 5 rows, df.tail() return last 5 rows
+df[df.col1 == 'abc']                     # filter by comparison, use ==, !=, >, <, >=, <=
+df[(df.col1 == 'abc') & (df.col2 > 50)]  # conditional filter, use &(and), |(or), ~(not), ^(xor), .any(), .all()
+df[df.col1.isin(['a','b'])]              # filter by is in list
+df[df.col1.isnull()]                     # filter by is null, otherwise use .notnull()
+df.filter(regex = 'pattern')             # filter by regex pattern
 ```
 ### Describe
 ```python
@@ -130,13 +129,21 @@ df.isnull().sum()                  # count null value each column, df.isnull() =
 df.nunique()                       # unique value each column
 df['col1'].value_counts()          # frequency each value
 df.sample(10)                      # return random sample 10 rows
-df.sort_values(['col1'], ascending=True)     # sort by col1 ascending
+df.sort_values(['col1'], ascending=True)     # sort by col1 ascending, .sort_index() for index
 ```
 ### Aggregate
+```python
+df.sum()                           # use sum, count, median, min, mean, var, std, nunique quantile([0.25,0.75])
+df.groupby(['col1']).size()        # group by col1
+df.groupby(df.col1).TargetCol.agg([np.mean, 'count'])     # multi aggregate function on group by
+df.pivot(index='col1', columns='col2', values='col3')     # reshape to pivot, error when duplicate 
+df.pivot_table(index='col1', columns='col2', values='col3', aggfunc='sum')     # pivot table, like excel
+
+```
 ### Plotting
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjExNzIzNTQyMSwtMTU3ODkxMTU5NywtMT
+eyJoaXN0b3J5IjpbMTAwNTQyMjE1NSwtMTU3ODkxMTU5NywtMT
 Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
 NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
 E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
