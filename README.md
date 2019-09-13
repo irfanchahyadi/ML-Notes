@@ -4,11 +4,19 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 - [Preparation](#Preparation)
 	- [Importer](#Importer)
 	- [Get Data](#Get-Data)
+		- [From Other Source](#From-Other-Source)
+		- [Scraping](#Scraping)
 - [Exploratory Data Analysis](#Exploratory-Data-Analysis)
 	- [Indexing](#Indexing)
 	- [Describe](#Describe)
 	- [Aggregate](#Aggregate)
 	- [Plotting](#Plotting)
+		- [Strip Plot](#Strip-Plot)
+		- [Swarm Plot](#Swarm-Plot)
+		- [Box Plot](#Box-Plot)
+		- [Violin Plot](#Violin-Plot)
+		- [Count Plot](#Count-Plot)
+		- [Cat Plot](#Cat-Plot)
 
 
 ## Preparation
@@ -38,7 +46,10 @@ import os                               # os interface, directory, path
 import glob                             # find file on directory with wildcard
 import pickle                           # save/load object on python into/from binary file
 import re                               # find regex pattern on string
+import scipy                            # scientific computing
 import statsmodels.api as sm            # statistic lib for python
+import requests                         # http for human
+from bs4 import BeautifulSoup           # tool for scrape web page
 ```
 ### Get Data
 Create DataFrame from list / dict.
@@ -48,7 +59,7 @@ b = {'a': [1,2,3,4], 'b': [5,6,7,8]}                   # from dictionary
 c = [0,1,2,3]                                          # for index
 df = pd.DataFrame(a, columns=list('ab'), index=c)
 ```
-Load data from other source.
+#### From Other Source
 ```python
 # Read data from CSV / Excel file
 df = pd.read_csv('data.csv', sep=',', index_col='col1', na_values='-', parse_dates=True)
@@ -99,12 +110,21 @@ d = load_boston()                                          # load data dict 'lik
 df = pd.DataFrame(d.data, columns=d.feature_names)         # create dataframe with column name
 df['TargetCol'] = d.target                                 # add TargetCol column
 ```
+#### Scraping
+With Requests + BeautifulSoup
+```python
+
+```
+With Scrapy
+```python
+
+```
 ## Exploratory Data Analysis
 ### Indexing
 ```python
 df.col1                                  # return series col1, easy way
 df['col1']                               # return series col1, robust way
-df[['col1', 'col2']]                     # return dataframe consist only col1
+df[['col1', 'col2']]                     # return dataframe consist col1 and col2
 df.loc[5:10, ['col1','col2']]            # return dataframe from row 5:10 column col1 and col2
 df.iloc[5:10, 3:5]                       # return dataframe from row 5:10 column 3:5
 df.head()                                # return first 5 rows, df.tail() return last 5 rows
@@ -123,29 +143,65 @@ df.T                               # transpose dataframe
 df.info()                          # info number of rows and cols, dtype each col, memory size
 df.describe(include='all')         # statistical descriptive: unique, mean, std, min, max, quartile
 df.skew()                          # degree of symetrical, 0 symmetry, + righthand longer, - lefthand longer
-df.kurt()                          # degree of peakedness, 0 normal dist, + flat, - peaked
+df.kurt()                          # degree of peakedness, 0 normal dist, + too peaked, - almost flat
 df.corr()                          # correlation matrix
 df.isnull().sum()                  # count null value each column, df.isnull() = df.isna()
 df.nunique()                       # unique value each column
-df['col1'].value_counts()          # frequency each value
 df.sample(10)                      # return random sample 10 rows
+df['col1'].value_counts(normalize=True)      # frequency each value
 df.sort_values(['col1'], ascending=True)     # sort by col1 ascending, .sort_index() for index
 ```
 ### Aggregate
 ```python
-df.sum()                           # use sum, count, median, min, mean, var, std, nunique quantile([0.25,0.75])
+df.sum()                           # use sum, count, median, min, mean, var, std, nunique, quantile([0.25,0.75])
 df.groupby(['col1']).size()        # group by col1
 df.groupby(df.col1).TargetCol.agg([np.mean, 'count'])     # multi aggregate function on group by
-df.pivot(index='col1', columns='col2', values='col3')     # reshape to pivot, error when duplicate 
+df.pivot(index='col1', columns='col2', values='col3')     # reshape to pivot, error when duplicate
 df.pivot_table(index='col1', columns='col2', values='col3', aggfunc='sum')     # pivot table, like excel
-
+flat = pd.DataFrame(df.to_records())            # flatten multiindex dataframe
 ```
 ### Plotting
-
+#### Strip Plot
+```python
+sns.stripplot(x='col1', y='col2', hue='col3', data=df, jitter=True, dodge=False, orient='v')
+# for few data, jitter=True makes point not overwrite on top each other
+```
+![stripplot](https://seaborn.pydata.org/_images/seaborn-stripplot-4.png)
+#### Swarm Plot
+```python
+sns.swarmplot(x='col1', y='col2', hue='col3', data=df, dodge=False, orient='v')
+# for few data, more clearly than stripplot, dodge=True makes each cat in hue separable
+```
+![swarmplot](https://seaborn.pydata.org/_images/seaborn-swarmplot-4.png)
+#### Box Plot
+```python
+sns.boxplot(x='col1', y='col2', hue='col3', data=df, dodge=False, orient='v')
+# for large data, include median, Q1 & Q3, min (Q1-1.5*IQR), max (Q1+1.5*IQR) and outliers
+```
+![boxplot](https://seaborn.pydata.org/_images/seaborn-boxplot-2.png)
+#### Violin Plot
+```python
+sns.violinplot(x='col1', y='col2', hue='col3', data=df, dodge=False, orient='v')
+# kernel density plot (KDE) for visualize clearly distribution of data
+```
+![violinplot](https://seaborn.pydata.org/_images/seaborn-violinplot-4.png)
+#### Count Plot
+```python
+sns.countplot(x='col1', y='col2', hue='col3', data=df, orient='v')
+# easy barplot for categorical features
+```
+![countplot](https://seaborn.pydata.org/_images/seaborn-countplot-2.png)
+#### Cat Plot
+```python
+sns.catplot(x='col1', y='col2', hue='col3', data=df, row='col4', col='col5', col_wrap=0, 
+kind='strip', sharex=True, sharey=True, orient='v')
+# categorical plot with facetgrid options 
+```
+![catplot](https://seaborn.pydata.org/_images/seaborn-catplot-5.png)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAwNTQyMjE1NSwtMTU3ODkxMTU5NywtMT
-Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
-NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
-E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
-NjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbLTE1NzU2MjYwMTAsLTE1Nzg5MTE1OTcsLT
+E2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgyNTMsLTcwODIw
+NTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5LC
+0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMDk2
+MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
 -->
