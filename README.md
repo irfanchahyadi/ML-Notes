@@ -161,6 +161,42 @@ df.pivot_table(index='col1', columns='col2', values='col3', aggfunc='sum')     #
 flat = pd.DataFrame(df.to_records())            # flatten multiindex dataframe
 ```
 ### Plotting
+#### Line Plot
+```python
+plt.plot(x, y, 'ro--')
+# x and y array like object, 'ro--' means red circle marker with dash line (see matplotlib cheatsheet below)
+# also written as plt.plot(x, y, color='r', marker='o', linestyle='--') you can also use df.plot() or 
+# sns.lineplot(x='col1', y='col2', hue='col3', size='col4', data=df)
+```
+![lineplot](https://matplotlib.org/_images/sphx_glr_set_and_get_001.png)
+#### Scatter plot
+```python
+plt.scatter(x, y, c, s)
+# x, y, c, s array like object, c (color) can be color format string, s (size) can be scalar
+# also df.plot.scatter(x='col1', y='col2', c='col3', s='col4') or
+# sns.scatterplot(x='col1', y='col2', hue='col3', size='col4', style='col5', data=df)
+```
+![scatterplot](https://seaborn.pydata.org/_images/seaborn-scatterplot-13.png)
+#### Pie Plot
+```python
+plt.pie(x, labels, explode, autopct='%1.1f%%')
+# x, labels, explode array like also df.plot.pie(y='col1') lable get from index  
+```
+![pieplot](https://matplotlib.org/_images/sphx_glr_pie_features_001.png)
+#### Histogram Plot
+```python
+plt.hist(x, bins=50, density=False,  cumulative=False)
+# x array like, density (probability density), cumulative probability
+# also df.plot.hist('col1') or sns.distplot(x)
+```
+![histplot](https://matplotlib.org/_images/sphx_glr_pyplot_text_001.png)
+#### Bar Plot
+```python
+plt.bar(x, y)     # or plt.barh(x, y)
+# x array like, also df.plot.bar(x='col1', y=['col2','col3'], stacked=True, subplots=False)
+# sns.barplot(x='col1', y='col2', hue='col3', data=df, orient='v')
+```
+![barplot](https://matplotlib.org/_images/sphx_glr_barchart_001.png)
 #### Strip Plot
 ```python
 sns.stripplot(x='col1', y='col2', hue='col3', data=df, jitter=True, dodge=False, orient='v')
@@ -176,7 +212,7 @@ sns.swarmplot(x='col1', y='col2', hue='col3', data=df, dodge=False, orient='v')
 #### Box Plot
 ```python
 sns.boxplot(x='col1', y='col2', hue='col3', data=df, dodge=False, orient='v')
-# for large data, include median, Q1 & Q3, min (Q1-1.5*IQR), max (Q1+1.5*IQR) and outliers
+# for large data, include median, Q1 & Q3, IQR (Q3-Q1), min (Q1-1.5*IQR), max (Q3+1.5*IQR) and outliers
 ```
 ![boxplot](https://seaborn.pydata.org/_images/seaborn-boxplot-2.png)
 #### Violin Plot
@@ -193,15 +229,15 @@ sns.countplot(x='col1', y='col2', hue='col3', data=df, orient='v')
 ![countplot](https://seaborn.pydata.org/_images/seaborn-countplot-2.png)
 #### Cat Plot
 ```python
-sns.catplot(x='col1', y='col2', hue='col3', data=df, row='col4', col='col5', col_wrap=0, 
+sns.catplot(x='col1', y='col2', hue='col3', data=df, row='col4', col='col5', col_wrap=4, 
 kind='strip', sharex=True, sharey=True, orient='v')
 # categorical plot with facetgrid options 
 ```
 ![catplot](https://seaborn.pydata.org/_images/seaborn-catplot-5.png)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NzU2MjYwMTAsLTE1Nzg5MTE1OTcsLT
-E2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgyNTMsLTcwODIw
-NTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsODc4MTE0MzI5LC
-0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQxNTY5LDEzMDk2
-MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF19
+eyJoaXN0b3J5IjpbMjEyMjI5NTQ1MSwtMTU3ODkxMTU5NywtMT
+Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
+NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
+E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
+NjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
