@@ -1,5 +1,5 @@
 # ML-Notes
-Complete personal notes for performing Data Analysis, Preprocessing, and Training ML model. For easy guideline and quick copy paste snippet to real work.
+Complete personal notes for performing Data Analysis, Preprocessing, and Training ML model. For easy guideline and quick copy paste snippet to real work. Constantly updated.
 ## Table of contents
 - [Preparation](#Preparation)
 	- [Importer](#Importer)
@@ -11,13 +11,21 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 	- [Describe](#Describe)
 	- [Aggregate](#Aggregate)
 	- [Plotting](#Plotting)
+		- [Line Plot](#Line-Plot)
+		- [Scatter plot](#Scatter-plot)
+		- [Pie Plot](#Pie-Plot)
+		- [Histogram Plot](#Histogram-Plot)
+		- [Bar Plot](#Bar-Plot)
 		- [Strip Plot](#Strip-Plot)
 		- [Swarm Plot](#Swarm-Plot)
 		- [Box Plot](#Box-Plot)
 		- [Violin Plot](#Violin-Plot)
 		- [Count Plot](#Count-Plot)
-		- [Cat Plot](#Cat-Plot)
-
+		- [Categorical Plot](#Categorical-Plot)
+		- [Joint Plot](#Joint-Plot)
+		- [Pair Plot](#Pair-Plot)
+		- [Regression Plot](#Regression-Plot)
+		- [Heat Map](#Heat-Map)
 
 ## Preparation
 ### Importer
@@ -54,10 +62,11 @@ from bs4 import BeautifulSoup           # tool for scrape web page
 ### Get Data
 Create DataFrame from list / dict.
 ```python
-a = [[1,2], [3,4], [5,6], [7,8]]                       # from list
-b = {'a': [1,2,3,4], 'b': [5,6,7,8]}                   # from dictionary
+a = [[1,2], [3,4], [5,6], [7,8]]
+b = {'a': [1,2,3,4], 'b': [5,6,7,8]}
 c = [0,1,2,3]                                          # for index
-df = pd.DataFrame(a, columns=list('ab'), index=c)
+df = pd.DataFrame(a, columns=list('ab'), index=c)      # from list
+df = pd.DataFrame(b)                                   # from dictionary, default index = [0,1,2,...]
 ```
 #### From Other Source
 ```python
@@ -227,17 +236,42 @@ sns.countplot(x='col1', y='col2', hue='col3', data=df, orient='v')
 # easy barplot for categorical features
 ```
 ![countplot](https://seaborn.pydata.org/_images/seaborn-countplot-2.png)
-#### Cat Plot
+#### Categorical Plot
 ```python
 sns.catplot(x='col1', y='col2', hue='col3', data=df, row='col4', col='col5', col_wrap=4, 
 kind='strip', sharex=True, sharey=True, orient='v')
 # categorical plot with facetgrid options 
 ```
 ![catplot](https://seaborn.pydata.org/_images/seaborn-catplot-5.png)
+#### Joint Plot
+```python
+sns.jointplot(x='col1', y='col2', data=df, kind='reg')     # kind = scatter/reg/resid/kde/hex
+# Joint 2 two type distrbution plot and kind plot
+```
+![jointplot](https://seaborn.pydata.org/_images/seaborn-jointplot-2.png)
+#### Pair Plot
+```python
+sns.pairplot(df, x_vars=['col1'], y_vars=['col2'], hue='col3', kind='scatter', diag_kind='auto')
+# multi joint plot, _vars for filter column, kind = scatter/reg, diag_kind = hist/kde
+```
+![pairplot](https://seaborn.pydata.org/_images/seaborn-pairplot-2.png)
+#### Regression Plot
+```python
+regplot(x='col1', y='col2', data=df, ci=95, order=1)
+# scatter plot + regression fit, ci (confidence interval 0-100), order (polynomial order)
+```
+![regplot](https://seaborn.pydata.org/_images/seaborn-regplot-1.png)
+#### Heat Map
+```python
+sns.heatmap(df.corr(), annot=True, fmt='.2g', annot_kws={'size': 8}, square=True, cmap=plt.cm.Reds)
+# useful for plot correlation, annot (write value data), fmt (format value), square, cmap (color map)
+# other option use df.corr().style.background_gradient(cmap='coolwarm').set_precision(2)
+```
+![heatmap](https://seaborn.pydata.org/_images/seaborn-heatmap-1.png)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEyMjI5NTQ1MSwtMTU3ODkxMTU5NywtMT
-Y4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1
-NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLT
-E4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYz
-NjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbLTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNj
+g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
+NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
+g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
+MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
 -->
