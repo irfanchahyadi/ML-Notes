@@ -1,5 +1,5 @@
 # ML-Notes
-Complete personal notes for performing Data Analysis, Preprocessing, and Training ML model. For easy guideline and quick copy paste snippet to real work. Constantly updated.
+Complete personal notes for performing Data Analysis, Preprocessing, and Training ML model. For easy guideline and quick copy paste snippet to real work. Fit on one page and constantly updated.
 ## Table of contents
 - [Preparation](#Preparation)
 	- [Importer](#Importer)
@@ -11,21 +11,9 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 	- [Describe](#Describe)
 	- [Aggregate](#Aggregate)
 	- [Plotting](#Plotting)
-		- [Line Plot](#Line-Plot)
-		- [Scatter plot](#Scatter-plot)
-		- [Pie Plot](#Pie-Plot)
-		- [Histogram Plot](#Histogram-Plot)
-		- [Bar Plot](#Bar-Plot)
-		- [Strip Plot](#Strip-Plot)
-		- [Swarm Plot](#Swarm-Plot)
-		- [Box Plot](#Box-Plot)
-		- [Violin Plot](#Violin-Plot)
-		- [Count Plot](#Count-Plot)
-		- [Categorical Plot](#Categorical-Plot)
-		- [Joint Plot](#Joint-Plot)
-		- [Pair Plot](#Pair-Plot)
-		- [Regression Plot](#Regression-Plot)
-		- [Heat Map](#Heat-Map)
+		- Relational : [Scatter](#Scatter-plot), [Line](#Line-Plot), [Joint](#Joint-Plot), [Pair](#Pair-Plot), [Regression](#Regression-Plot)
+		- Distribution : [Pie](#Pie-Plot), [Histogram](#Histogram-Plot), [Bar](#Bar-Plot), [Strip](#Strip-Plot), [Swarm](#Swarm-Plot), [Box](#Box-Plot), [Violin](#Violin-Plot), [Categorical](#Categorical-Plot)
+		- Other : [Heat Map](#Heat-Map)
 
 ## Preparation
 ### Importer
@@ -45,7 +33,15 @@ from oauth2client.service_account import ServiceAccountCredentials   # google au
 from gspread_dataframe import get_as_dataframe, set_with_dataframe   # library i/o directly from df
 
 # Scikit-learn
-from
+from sklearn.preprocessing import Imputer, scale, StandardScaler
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
+from sklearn.metrics import mean_squared_error, classification_report, confusion_matrix, roc_curve, roc_auc_score
+from sklearn.pipeline import Pipeline
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet, LogisticRegression
+from sklearn.svm import SVC
+
 
 # Other Tools
 %reload_ext dotenv                      # reload dotenv on jupyter notebook
@@ -122,7 +118,11 @@ df['TargetCol'] = d.target                                 # add TargetCol colum
 #### Scraping
 With Requests + BeautifulSoup
 ```python
-
+HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'}
+headers = {'User-Agent': usr}                            # headers request
+res = requests.get(url, headers=headers)                 # request url
+soup = bs4.BeautifulSoup(res.content, 'html.parser')     # create soup object
+rows = soup.select('div.product')                        # selector, see appendix
 ```
 With Scrapy
 ```python
@@ -170,14 +170,6 @@ df.pivot_table(index='col1', columns='col2', values='col3', aggfunc='sum')     #
 flat = pd.DataFrame(df.to_records())            # flatten multiindex dataframe
 ```
 ### Plotting
-#### Line Plot
-```python
-plt.plot(x, y, 'ro--')
-# x and y array like object, 'ro--' means red circle marker with dash line (see matplotlib cheatsheet below)
-# also written as plt.plot(x, y, color='r', marker='o', linestyle='--') you can also use df.plot() or 
-# sns.lineplot(x='col1', y='col2', hue='col3', size='col4', data=df)
-```
-![lineplot](https://matplotlib.org/_images/sphx_glr_set_and_get_001.png)
 #### Scatter plot
 ```python
 plt.scatter(x, y, c, s)
@@ -186,6 +178,32 @@ plt.scatter(x, y, c, s)
 # sns.scatterplot(x='col1', y='col2', hue='col3', size='col4', style='col5', data=df)
 ```
 ![scatterplot](https://seaborn.pydata.org/_images/seaborn-scatterplot-13.png)
+#### Line Plot
+```python
+plt.plot(x, y, 'ro--')
+# x and y array like object, 'ro--' means red circle marker with dash line (see matplotlib cheatsheet below)
+# also written as plt.plot(x, y, color='r', marker='o', linestyle='--') you can also use df.plot() or 
+# sns.lineplot(x='col1', y='col2', hue='col3', size='col4', data=df)
+```
+![lineplot](https://matplotlib.org/_images/sphx_glr_set_and_get_001.png)
+#### Joint Plot
+```python
+sns.jointplot(x='col1', y='col2', data=df, kind='reg')     # kind = scatter/reg/resid/kde/hex
+# Joint 2 two type distrbution plot and kind plot
+```
+![jointplot](https://seaborn.pydata.org/_images/seaborn-jointplot-2.png)
+#### Pair Plot
+```python
+sns.pairplot(df, x_vars=['col1'], y_vars=['col2'], hue='col3', kind='scatter', diag_kind='auto')
+# multi joint plot, _vars for filter column, kind = scatter/reg, diag_kind = hist/kde
+```
+![pairplot](https://seaborn.pydata.org/_images/seaborn-pairplot-2.png)
+#### Regression Plot
+```python
+regplot(x='col1', y='col2', data=df, ci=95, order=1)
+# scatter plot + regression fit, ci (confidence interval 0-100), order (polynomial order)
+```
+![regplot](https://seaborn.pydata.org/_images/seaborn-regplot-1.png)
 #### Pie Plot
 ```python
 plt.pie(x, labels, explode, autopct='%1.1f%%')
@@ -203,6 +221,7 @@ plt.hist(x, bins=50, density=False,  cumulative=False)
 ```python
 plt.bar(x, y)     # or plt.barh(x, y)
 # x array like, also df.plot.bar(x='col1', y=['col2','col3'], stacked=True, subplots=False)
+# sns.countplot(x='col1', y='col2', hue='col3', data=df, orient='v')
 # sns.barplot(x='col1', y='col2', hue='col3', data=df, orient='v')
 ```
 ![barplot](https://matplotlib.org/_images/sphx_glr_barchart_001.png)
@@ -230,12 +249,6 @@ sns.violinplot(x='col1', y='col2', hue='col3', data=df, dodge=False, orient='v')
 # kernel density plot (KDE) for visualize clearly distribution of data
 ```
 ![violinplot](https://seaborn.pydata.org/_images/seaborn-violinplot-4.png)
-#### Count Plot
-```python
-sns.countplot(x='col1', y='col2', hue='col3', data=df, orient='v')
-# easy barplot for categorical features
-```
-![countplot](https://seaborn.pydata.org/_images/seaborn-countplot-2.png)
 #### Categorical Plot
 ```python
 sns.catplot(x='col1', y='col2', hue='col3', data=df, row='col4', col='col5', col_wrap=4, 
@@ -243,24 +256,6 @@ kind='strip', sharex=True, sharey=True, orient='v')
 # categorical plot with facetgrid options 
 ```
 ![catplot](https://seaborn.pydata.org/_images/seaborn-catplot-5.png)
-#### Joint Plot
-```python
-sns.jointplot(x='col1', y='col2', data=df, kind='reg')     # kind = scatter/reg/resid/kde/hex
-# Joint 2 two type distrbution plot and kind plot
-```
-![jointplot](https://seaborn.pydata.org/_images/seaborn-jointplot-2.png)
-#### Pair Plot
-```python
-sns.pairplot(df, x_vars=['col1'], y_vars=['col2'], hue='col3', kind='scatter', diag_kind='auto')
-# multi joint plot, _vars for filter column, kind = scatter/reg, diag_kind = hist/kde
-```
-![pairplot](https://seaborn.pydata.org/_images/seaborn-pairplot-2.png)
-#### Regression Plot
-```python
-regplot(x='col1', y='col2', data=df, ci=95, order=1)
-# scatter plot + regression fit, ci (confidence interval 0-100), order (polynomial order)
-```
-![regplot](https://seaborn.pydata.org/_images/seaborn-regplot-1.png)
 #### Heat Map
 ```python
 sns.heatmap(df.corr(), annot=True, fmt='.2g', annot_kws={'size': 8}, square=True, cmap=plt.cm.Reds)
@@ -269,9 +264,10 @@ sns.heatmap(df.corr(), annot=True, fmt='.2g', annot_kws={'size': 8}, square=True
 ```
 ![heatmap](https://seaborn.pydata.org/_images/seaborn-heatmap-1.png)
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNj
-g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
-NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
-g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
-MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbLTE3MTk3NzA4NjcsLTIyNzg1NzQ1LC0xNT
+c4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQwMzIsODU3MDM4
+MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LD
+g3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0
+MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MT
+hdfQ==
 -->
