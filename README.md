@@ -21,6 +21,19 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 	- [Categorical Feature](#Categorical-Feature)
 	- [Transform](#Transform)
 	- [Scaling and Normalize](#Scaling-and-Normalize)
+- [Training Model](#Training-Model)
+	- [Feature Selection](#Feature-Selection)
+	- [Cross Validation](#Cross-Validation)
+	- [Train Model](#Train-Model)
+	- [Evaluation](#Evaluation)
+	- [Hyperparameter Tuning](#Hyperparameter-Tuning)
+	- [Pipeline](#Pipeline)
+- [Miscellaneous](#Miscellaneous)
+	- [Basic Python](#Basic-Python)
+	- [Regex Cheatsheet](#Regex-Cheatsheet)
+	- [Datetime Cheatsheet](#Datetime-Cheatsheet)
+	- [CSS Selector Cheatsheet](#CSS-Selector-Cheatsheet)
+	- [Matplotlib Cheatsheet](#Matplotlib-Cheatsheet)
 
 ## Preparation
 ### Importer
@@ -130,7 +143,7 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 headers = {'User-Agent': usr}                            # headers request
 res = requests.get(url, headers=headers)                 # request url
 soup = bs4.BeautifulSoup(res.content, 'html.parser')     # create soup object
-rows = soup.select('div.product')                        # selector, see appendix
+rows = soup.select('div.product')                        # selector, see misc
 ```
 With Scrapy
 ```python
@@ -292,8 +305,52 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 ### Categorical Feature
 ### Transform
 ### Scaling and Normalize
+
+## Training Model
+### Feature Selection
+### Cross Validation
+```python
+# Train test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42, stratify=y)
+
+# Cross Validation
+cv_auc = cross_val_score(model, X, y, cv=5, scoring='r2', )     # (Stratified) KFold CV, return list of score
+```
+### Train Model
+```python
+# Classification model
+clf = LogisticRegression(penalty='l1', C=1.0)
+# C inverse regularization, smaller C stronger reg
+
+clf = KNeighborsClassifier(n_neighbors=3)
+# n_neighbors number neighbors
+
+clf = DecisionTreeClassifier(max_depth=3, criterion='entropy')
+# criterion = gini/entropy, other params: min_sample_split, min_sample_leaf, max_features
+```
+### Evaluation
+### Hyperparameter Tuning
+```python
+# Grid Sarch CV: Try every parameter combination
+params = {'C': [1, 0.5, 0.1, 0.05, 0.01]}
+grid_cv = GridSearchCV(model, params, cv=5, scoring='r2')
+grid_cv.fit(X, y)     # return grid_cv.best_params_ and grid_cv.best_score_
+
+# Randomized Search CV
+params = {'C': scipy.stats.randint(0, 1)}
+randomsearch_cv = RandomizedSearchCV(model, params, cv=5, scoirng='r2')
+randomsearch_cv.fit(X, y)     # return grid_cv.best_params_ and grid_cv.best_score_
+```
+### Pipeline
+
+## Miscellaneous
+### Basic Python
+### Regex Cheatsheet
+### Datetime Cheatsheet
+### CSS Selector Cheatsheet
+### Matplotlib Cheatsheet
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAzOTU5ODU5OSwtMjI3ODU3NDUsLTE1Nz
+eyJoaXN0b3J5IjpbLTk0MDc5OTkxMywtMjI3ODU3NDUsLTE1Nz
 g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
 NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
 c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
