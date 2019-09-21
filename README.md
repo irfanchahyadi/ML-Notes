@@ -14,6 +14,13 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 		- Relational : [Scatter](#Scatter-plot), [Line](#Line-Plot), [Joint](#Joint-Plot), [Pair](#Pair-Plot), [Regression](#Regression-Plot)
 		- Distribution : [Pie](#Pie-Plot), [Histogram](#Histogram-Plot), [Bar](#Bar-Plot), [Strip](#Strip-Plot), [Swarm](#Swarm-Plot), [Box](#Box-Plot), [Violin](#Violin-Plot), [Categorical](#Categorical-Plot)
 		- Other : [Heat Map](#Heat-Map)
+		- [Properties](#Properties)
+- [Preprocessing](#Preprocessing)
+	- [Feature Engineering](#Feature-Engineering)
+	- [Missing Value](#Missing-Value)
+	- [Categorical Feature](#Categorical-Feature)
+	- [Transform](#Transform)
+	- [Scaling and Normalize](#Scaling-and-Normalize)
 
 ## Preparation
 ### Importer
@@ -37,11 +44,12 @@ from sklearn.preprocessing import Imputer, scale, StandardScaler
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
 from sklearn.metrics import mean_squared_error, classification_report, confusion_matrix, roc_curve, roc_auc_score
 from sklearn.pipeline import Pipeline
+
+# Scikit-learn Model
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet, LogisticRegression
 from sklearn.svm import SVC
-
 
 # Other Tools
 %reload_ext dotenv                      # reload dotenv on jupyter notebook
@@ -263,11 +271,32 @@ sns.heatmap(df.corr(), annot=True, fmt='.2g', annot_kws={'size': 8}, square=True
 # other option use df.corr().style.background_gradient(cmap='coolwarm').set_precision(2)
 ```
 ![heatmap](https://seaborn.pydata.org/_images/seaborn-heatmap-1.png)
+#### Properties
+```python
+fig, ax = plt.subplots(1, 2, sharex=False, sharey=False, figsize=(15,4))    # subplots, access with ax[0,1]
+plt.title('title')          # or ax.set_title
+plt.xlabel('foo')           # or plt.ylabel, ax.set_xlabel, ax.set_ylabel
+plt.xticks(x)               # x list, or ax.set_xticks
+plt.xticklabels(labels)     # xax.set_xticklabels(labels)
+plt.xlim(0, 100)            # limit axis
+plt.legend(loc='best')      # or ax.legend, loc = upper/lower/right/left/center/upper right
+plt.rcParams['figure.figsize'] = (16, 10)      # setting default figsize
+
+g = sns.FacetGrid(df, row='col1', col='col2', hue='col3')     # comparable subplot row by col1 col by col2
+g.map(plt.hist, 'col4', bins=50)                              # with histogram count col4
+g.map(plt.scatter, 'col4', 'col5')                            # or with scatter plot col4 and col5
+```
+## Preprocessing
+### Feature Engineering
+### Missing Value
+### Categorical Feature
+### Transform
+### Scaling and Normalize
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MTk3NzA4NjcsLTIyNzg1NzQ1LC0xNT
-c4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQwMzIsODU3MDM4
-MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LD
-g3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0
-MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MT
-hdfQ==
+eyJoaXN0b3J5IjpbMjAzOTU5ODU5OSwtMjI3ODU3NDUsLTE1Nz
+g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
+NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
+c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
+NTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF
+19
 -->
