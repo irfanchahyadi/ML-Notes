@@ -162,7 +162,7 @@ df[df.col1 == 'abc']                     # filter by comparison, use ==, !=, >, 
 df[(df.col1 == 'abc') & (df.col2 > 50)]  # conditional filter, use &(and), |(or), ~(not), ^(xor), .any(), .all()
 df[df.col1.isin(['a','b'])]              # filter by is in list
 df[df.col1.isnull()]                     # filter by is null, otherwise use .notnull()
-df.filter(regex = 'pattern')             # filter by regex pattern
+df.filter(regex = 'pattern')             # filter by regex pattern, see misc
 ```
 ### Describe
 ```python
@@ -290,8 +290,8 @@ fig, ax = plt.subplots(1, 2, sharex=False, sharey=False, figsize=(15,4))    # su
 plt.title('title')          # or ax.set_title
 plt.xlabel('foo')           # or plt.ylabel, ax.set_xlabel, ax.set_ylabel
 plt.xticks(x)               # x list, or ax.set_xticks
-plt.xticklabels(labels)     # xax.set_xticklabels(labels)
-plt.xlim(0, 100)            # limit axis
+plt.xticklabels(labels)     # or ax.set_xticklabels(labels)
+plt.xlim(0, 100)            # or ylim, ax.set_xlim, ax.set_ylim
 plt.legend(loc='best')      # or ax.legend, loc = upper/lower/right/left/center/upper right
 plt.rcParams['figure.figsize'] = (16, 10)      # setting default figsize
 
@@ -305,6 +305,16 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 ### Categorical Feature
 ### Transform
 ### Scaling and Normalize
+```python
+scaler = StandardScaler()                              # scale data to mean 0 and stddev 1
+scaler = MinMaxScaler(feature_range=(0, 1))            # scale data to 0 to 1 (can be set as -1 to 1)
+scaler = RobustScaler()quantile_range=(25.0, 75.0)     # scale data to robust to outlier
+scaler = Normalizer(norm='l2')                         # normalize data
+
+scaler.fit(X)
+scaler.transform(X)             # perform scaling, or use .fit_transform
+scaler.inverse_transform(X)     # scale back to original
+```
 
 ## Training Model
 ### Feature Selection
@@ -334,12 +344,12 @@ clf = DecisionTreeClassifier(max_depth=3, criterion='entropy')
 # Grid Sarch CV: Try every parameter combination
 params = {'C': [1, 0.5, 0.1, 0.05, 0.01]}
 grid_cv = GridSearchCV(model, params, cv=5, scoring='r2')
-grid_cv.fit(X, y)     # return grid_cv.best_params_ and grid_cv.best_score_
+grid_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_score_
 
-# Randomized Search CV
+# Randomized Search CV: Try every parameter combination based on random distribution
 params = {'C': scipy.stats.randint(0, 1)}
 randomsearch_cv = RandomizedSearchCV(model, params, cv=5, scoirng='r2')
-randomsearch_cv.fit(X, y)     # return grid_cv.best_params_ and grid_cv.best_score_
+randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_score_
 ```
 ### Pipeline
 
@@ -350,10 +360,10 @@ randomsearch_cv.fit(X, y)     # return grid_cv.best_params_ and grid_cv.best_sco
 ### CSS Selector Cheatsheet
 ### Matplotlib Cheatsheet
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2NTg1MzQzMjksLTIyNzg1NzQ1LC0xNT
-c4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQwMzIsODU3MDM4
-MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LD
-g3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0
-MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MT
-hdfQ==
+eyJoaXN0b3J5IjpbMjEwNjM1Mjk0NywtMjI3ODU3NDUsLTE1Nz
+g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
+NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
+c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
+NTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF
+19
 -->
