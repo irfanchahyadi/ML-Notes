@@ -302,12 +302,22 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 ## Preprocessing
 ### Feature Engineering
 ### Missing Value
+```python
+df = df.fillna(0, method=None)                                   # None/backfill/bfill/pad/ffill
+imp = Imputer(missing_values='NaN', strategy='mean', axis=0)     # strategy = mean/median/most_frequent
+imp.fit(X)
+X = enc.transform(X)             # perform imputing, or use .fit_transform
+```
 ### Categorical Feature
 ```python
-enc = LabelBinarizer()
-enc = LabelEncoder()
-enc = OneHotEncoder(handle_unknown='error')
+enc = LabelBinarizer()                          # label with value 0 or 1
+enc = LabelEncoder()                            # label with value 0 to n-1 
+enc = OrdinalEncoder()                          # label with value 0 to n-1, multi column 
+enc = OneHotEncoder(handle_unknown='error')     # create dummy n column binarize, handle_unknown = error/ignore
 
+enc.fit(X)
+X = enc.transform(X)             # perform encoding, or use .fit_transform
+X = enc.inverse_transform(X)     # decode back to original
 ```
 ### Transform
 ### Scaling and Normalize
@@ -318,8 +328,8 @@ scaler = RobustScaler()quantile_range=(25.0, 75.0)     # scale data to robust to
 scaler = Normalizer(norm='l2')                         # normalize data
 
 scaler.fit(X)
-scaler.transform(X)             # perform scaling, or use .fit_transform
-scaler.inverse_transform(X)     # scale back to original
+X = scaler.transform(X)             # perform scaling, or use .fit_transform
+X = scaler.inverse_transform(X)     # scale back to original
 ```
 
 ## Training Model
@@ -366,10 +376,10 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 ### CSS Selector Cheatsheet
 ### Matplotlib Cheatsheet
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU1NzcwMzQ5MiwtMjI3ODU3NDUsLTE1Nz
-g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
-NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
-c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
-NTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF
-19
+eyJoaXN0b3J5IjpbODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3OD
+kxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1
+MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4Nz
+gxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1
+NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX
+0=
 -->
