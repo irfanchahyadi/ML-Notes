@@ -303,6 +303,12 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 ### Feature Engineering
 ### Missing Value
 ### Categorical Feature
+```python
+enc = LabelBinarizer()
+enc = LabelEncoder()
+enc = OneHotEncoder(handle_unknown='error')
+
+```
 ### Transform
 ### Scaling and Normalize
 ```python
@@ -360,7 +366,7 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 ### CSS Selector Cheatsheet
 ### Matplotlib Cheatsheet
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEwNjM1Mjk0NywtMjI3ODU3NDUsLTE1Nz
+eyJoaXN0b3J5IjpbMTU1NzcwMzQ5MiwtMjI3ODU3NDUsLTE1Nz
 g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
 NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
 c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
