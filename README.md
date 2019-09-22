@@ -314,7 +314,7 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42, stratify=y)
 
 # Cross Validation
-cv_auc = cross_val_score(model, X, y, cv=5, scoring='r2', )     # (Stratified) KFold CV, return list of score
+cv = cross_val_score(model, X, y, cv=5, scoring='r2', )     # (Stratified) KFold CV, return list of score
 ```
 ### Train Model
 ```python
@@ -350,10 +350,10 @@ randomsearch_cv.fit(X, y)     # return grid_cv.best_params_ and grid_cv.best_sco
 ### CSS Selector Cheatsheet
 ### Matplotlib Cheatsheet
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk0MDc5OTkxMywtMjI3ODU3NDUsLTE1Nz
-g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
-NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
-c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
-NTY5LDEzMDk2MzYwMTEsLTIwODkwMTA0NzIsMTI3ODA2NDYxOF
-19
+eyJoaXN0b3J5IjpbLTE2NTg1MzQzMjksLTIyNzg1NzQ1LC0xNT
+c4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQwMzIsODU3MDM4
+MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LD
+g3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0
+MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLDEyNzgwNjQ2MT
+hdfQ==
 -->
