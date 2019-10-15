@@ -371,22 +371,118 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 
 ## Miscellaneous
 ### Basic Python
+#### Pickle
 ```python
-try:
-    with open('data.pickle', 'rb') as f:
-        data = pickle.load(f)
+try:                                           # check if there is pickle file
+    with open('data.pickle', 'rb') as f:       # open pickle file
+        data = pickle.load(f)                  # load data from pickle
 
-except FileNotFoundError:
-    X_data, y_data = load_file_data(df['LINK'], df['GRADE_MESIN'])
-    with open('data.pickle', 'wb') as f:
-        pickle.dump(data, f)
+except FileNotFoundError:                      # if pickle file not found
+    data = some_process()                      # run some process to get data
+    with open('data.pickle', 'wb') as f:       # create new blank pickle file
+        pickle.dump(data, f)                   # save data to pickle
 ```
 ### Regex Cheatsheet
+```python
+# Cheatsheet:
+\d   # any number
+\D   # anything but number
+\w   # any character
+\W   # anything but character
+.    # any character except newline
+\b   # whitespace
+\.   # dot character
++    # match 1 or more
+*    # match 0 or 1
+?    # match 0 or 1
+^    # start string
+$    # end string
+{}   # expect 1-3, ex \d{3} expect 3 digit number, \d{1,3} expect 1-3 digit number
+[]   # range, ex [A-Z] expect all capital letter, [abcd] expect letter a, b, c, d
+|    # either or, ex \d{1,4}|[A-z]{4,10} expect 1-4 digit number or 4-10 character word
+\n   # newline
+\s   # space
+\t   # tab
+\e   # escape
+\r   # return
+
+# Sample:
+'Chapter\s\d{1,4}[\,\.]?\d{0,1}'     # Got: Chapter 1, Chapter 23, Chapter 649, Chapter 120.5, Chapter 120,5
+```
 ### Datetime Cheatsheet
+```python
+# Cheatsheet:
+%Y   # Year 4 digit, ex: 1992, 2008, 2014
+%y   # Year 2 digit, ex: 92, 08, 14
+%m   # Month 2 digit, ex: 01, 02, ..., 12
+%b   # Month abbreviation, ex: Jan, Feb, ..., Dec
+%B   # Month full, ex: January, February, ..., December
+%d   # Day 2 digit, ex: 01, 02, ..., 31
+%w   # Weekday 1 digit, ex: 0 (Sunday), 1, ..., 6
+%a   # Weekday abbreviation, ex: Sun, Mon, ..., Sat
+%A   # Weekday full, ex: Sunday, Monday, ..., Saturday
+%H   # Hour (24), ex: 01, 02, ..., 23, 00
+%I   # Hour (12), ex: 01, 02, ..., 11, 12
+%M   # Minute, ex: 00, 01, ..., 59
+%S   # Second, ex: 00, 01, ..., 59
+%f   # Microsecond, ex: 000000, 000001, ..., 999999
+%c   # Local datetime representation, ex: Tue Aug 16 21:30:00 1988
+%x   # Local date representation, ex: 08/16/88
+%X   # Local time representation, ex: 21:30:00
+
+# Sample:
+'%d-%m-%Y %H:%M:%S'     # Personal preferred datetime, ex: 16-08-1988 21:30:00
+```
 ### CSS Selector Cheatsheet
+```python
+# Cheatsheet:
+div                # div
+#abc               # id abc
+.abc               # class abc
+div.abc            # div with class abc
+div.abc.def        # div with class both abc and def
+div a              # a inside div
+div > a            # a directly inside div
+div + p            # p immediately after div
+div ~ p            # p after div
+a[target=_blank]   # a with attribute target="_blank"
+```
 ### Matplotlib Cheatsheet
+```python
+# Line Styles Cheatsheet:
+-    # solid line
+--   # dashed line
+-.   # dash-dot line
+:    # dotted line
+
+# Marker Styles Cheatsheet:
+.   # point
+o   # circle
+^   # triangle up, also v, <, >
+s   # square
+p   # pentagon
+*   # star
++   # plus
+x   # x
+|   # v line
+-   # h line
+
+# Color Styles Cheatsheet:
+b   # blue
+g   # green
+r   # red
+c   # cyan
+m   # magenta
+y   # yellow
+k   # black
+w   # white
+
+# Cmap Cheatsheet:
+viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1, Set2, Set3
+plt.colormaps()     # return all possible cmap
+```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5NTMyNjk3Nyw4ODQ1NTA1NzcsLTIyNz
+eyJoaXN0b3J5IjpbMTkyMDc1MzY1NSw4ODQ1NTA1NzcsLTIyNz
 g1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQw
 MzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNz
 gxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4
