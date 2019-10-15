@@ -371,15 +371,25 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 
 ## Miscellaneous
 ### Basic Python
+```python
+try:
+    with open('data.pickle', 'rb') as f:
+        data = pickle.load(f)
+
+except FileNotFoundError:
+    X_data, y_data = load_file_data(df['LINK'], df['GRADE_MESIN'])
+    with open('data.pickle', 'wb') as f:
+        pickle.dump(data, f)
+```
 ### Regex Cheatsheet
 ### Datetime Cheatsheet
 ### CSS Selector Cheatsheet
 ### Matplotlib Cheatsheet
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3OD
-kxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1
-MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4Nz
-gxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1
-NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX
-0=
+eyJoaXN0b3J5IjpbMTA5NTMyNjk3Nyw4ODQ1NTA1NzcsLTIyNz
+g1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQw
+MzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNz
+gxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4
+NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLD
+EyNzgwNjQ2MThdfQ==
 -->
