@@ -140,13 +140,19 @@ df['TargetCol'] = d.target                                 # add TargetCol colum
 With Requests + BeautifulSoup
 ```python
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'}
-headers = {'User-Agent': usr}                            # headers request
-res = requests.get(url, headers=headers)                 # request url
+res = requests.get(url, headers=HEADERS)                 # request url
 soup = bs4.BeautifulSoup(res.content, 'html.parser')     # create soup object
 rows = soup.select('div.product')                        # selector, see misc
 ```
 With Scrapy
 ```python
+# Shell command:
+scrapy startproject project_name           # create new project
+cd project_name
+scrapy genspider spider_name url           # generate new spider
+scrapy crawl spider_name                   # run spider
+scrapy crawl spider_name -o result.csv     # run spider, save output as csv
+scrapy shell url                           # testing shell to specific url
 
 ```
 ## Exploratory Data Analysis
@@ -482,7 +488,7 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkyMDc1MzY1NSw4ODQ1NTA1NzcsLTIyNz
+eyJoaXN0b3J5IjpbMTM0MTIwODMwNiw4ODQ1NTA1NzcsLTIyNz
 g1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQw
 MzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNz
 gxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4
