@@ -156,7 +156,7 @@ scrapy shell url                           # testing shell to specific url
 
 # Spider example 1 :
 class QuotesSpider(scrapy.Spider):
-    name = 'quotes_1'
+    name = 'quotes'
     start_urls = ['http://quotes.toscrape.com']
 
     def parse(self, response):
@@ -164,18 +164,16 @@ class QuotesSpider(scrapy.Spider):
 
         # List of quotes
         for quote in response.css('div.quote'):
-            item = {
-	            'author_name': quote.css('small.author::text').extract_first(),
+            item = {'author_name': quote.css('small.author::text').extract_first(),
 	            'text': quote.css('span.text::text').extract_first(),
-	            'tags': quote.css('a.tag::text').extract()
-	            }
+	            'tags': quote.css('a.tag::text').extract()}
             yield item
 
         # Follow pagination link
-        rel_link = response.css('li.next > a::attr(href)').extract_first()
-        if rel_link:
-            abs_link = response.urljoin(rel_link)
-            yield scrapy.Request(url=abs_link, callback=self.parse)
+        next_link = response.css('li.next > a::attr(href)').extract_first()
+        if next_link:
+            full_next_link = response.urljoin(rel_link)
+            yield scrapy.Request(url=full_next_link, callback=self.parse)
 ```
 ## Exploratory Data Analysis
 ### Indexing
@@ -401,6 +399,36 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 
 ## Miscellaneous
 ### Basic Python
+#### Basic data type
+String
+```python
+s.isalnum()            # return True if alphabetic or numeric
+s.isnumeric()          # return True if numeric
+s.isalpha()            # return True if alphabetic
+'abc' in s             # return True if 'abc' found in s, otherwise use not in
+s.find('abc')          # return index where substring 'abc' found in s
+'abcd: {}'.format(x)   # replace {} with value of x, use {:,} for thousand separator, {:.2%} for 2 decimal
+s.strip()              # return removed leading and trailing space, also use lstrip() or rstrip()
+'1,2,3'.split(',')     # return list of ['1', '2', '3']
+```
+List & Tuple
+```python
+s = [1,2,3,4]   # or use list(1,2,3,4) 
+1 in s          # return True if 1 found s
+s1 + s2         # concate s1 and s2
+s[1]            # second item in s
+s[1:5]          # slice s from 1 to 5 (4 element)
+s[1:5:-1]       # slice s from 1 to 5 backwards
+s.index(3)      # return index of 3 in s
+s.append(3)     # append 3 to end of s
+s.reverse()     # reverse s, not return anything
+```
+Set
+```python
+```
+Dictionary
+```python
+```
 #### Pickle
 ```python
 try:                                           # check if there is pickle file
@@ -512,10 +540,10 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0Mjg4NTQwNjAsMTM0MTIwODMwNiw4OD
-Q1NTA1NzcsLTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEw
-ODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMT
-kyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMz
-Njk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC
-0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbMzA0NTUyNDI4LDEzNDEyMDgzMDYsODg0NT
+UwNTc3LC0yMjc4NTc0NSwtMTU3ODkxMTU5NywtMTY4NTQxMDg2
+NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1NTYwLDE5Mj
+kyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5
+NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYzNjAxMSwtMj
+A4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
