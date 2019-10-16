@@ -140,7 +140,7 @@ df['TargetCol'] = d.target                                 # add TargetCol colum
 With Requests + BeautifulSoup
 ```python
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'}
-res = requests.get(url, headers=HEADERS)                 # request url
+res = requests.get(url, headers=HEADERS)                 # request url, with user agent on headers
 soup = bs4.BeautifulSoup(res.content, 'html.parser')     # create soup object
 rows = soup.select('div.product')                        # selector, see misc
 ```
@@ -154,6 +154,28 @@ scrapy crawl spider_name                   # run spider
 scrapy crawl spider_name -o result.csv     # run spider, save output as csv
 scrapy shell url                           # testing shell to specific url
 
+# Spider example 1 :
+class QuotesSpider(scrapy.Spider):
+    name = 'quotes_1'
+    start_urls = ['http://quotes.toscrape.com']
+
+    def parse(self, response):
+        self.log('I just visited: ' + response.url)
+
+        # List of quotes
+        for quote in response.css('div.quote'):
+            item = {
+	            'author_name': quote.css('small.author::text').extract_first(),
+	            'text': quote.css('span.text::text').extract_first(),
+	            'tags': quote.css('a.tag::text').extract()
+	            }
+            yield item
+
+        # Follow pagination link
+        rel_link = response.css('li.next > a::attr(href)').extract_first()
+        if rel_link:
+            abs_link = response.urljoin(rel_link)
+            yield scrapy.Request(url=abs_link, callback=self.parse)
 ```
 ## Exploratory Data Analysis
 ### Indexing
@@ -169,6 +191,8 @@ df[(df.col1 == 'abc') & (df.col2 > 50)]  # conditional filter, use &(and), |(or)
 df[df.col1.isin(['a','b'])]              # filter by is in list
 df[df.col1.isnull()]                     # filter by is null, otherwise use .notnull()
 df.filter(regex = 'pattern')             # filter by regex pattern, see misc
+for idx, row in df.iterrows():           # iterate dataframe by rows
+    print(row['col1'])                   # return index and series of row
 ```
 ### Describe
 ```python
@@ -488,10 +512,10 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM0MTIwODMwNiw4ODQ1NTA1NzcsLTIyNz
-g1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQw
-MzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNz
-gxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4
-NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEwNDcyLD
-EyNzgwNjQ2MThdfQ==
+eyJoaXN0b3J5IjpbLTE0Mjg4NTQwNjAsMTM0MTIwODMwNiw4OD
+Q1NTA1NzcsLTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEw
+ODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMT
+kyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMz
+Njk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC
+0yMDg5MDEwNDcyLDEyNzgwNjQ2MThdfQ==
 -->
