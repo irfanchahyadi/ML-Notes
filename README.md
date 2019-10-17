@@ -314,11 +314,11 @@ sns.heatmap(df.corr(), annot=True, fmt='.2g', annot_kws={'size': 8}, square=True
 ![heatmap](https://seaborn.pydata.org/_images/seaborn-heatmap-1.png)
 #### Properties
 ```python
+plt.figure(figsize=(15,8))
 fig, ax = plt.subplots(1, 2, sharex=False, sharey=False, figsize=(15,4))    # subplots, access with ax[0,1]
 plt.title('title')          # or ax.set_title
 plt.xlabel('foo')           # or plt.ylabel, ax.set_xlabel, ax.set_ylabel
-plt.xticks(x)               # x list, or ax.set_xticks
-plt.xticklabels(labels)     # or ax.set_xticklabels(labels)
+plt.xticks(x, labels)       # x and labels list, or ax.set_xticks
 plt.xlim(0, 100)            # or ylim, ax.set_xlim, ax.set_ylim
 plt.legend(loc='best')      # or ax.legend, loc = upper/lower/right/left/center/upper right
 plt.rcParams['figure.figsize'] = (16, 10)      # setting default figsize
@@ -329,6 +329,9 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 ```
 ## Preprocessing
 ### Feature Engineering
+```python
+df.col1 = pd.Categorical(df.col1, categories=['A','B','C'], ordered=True)     # convert column to category
+```
 ### Missing Value
 ```python
 df = df.fillna(0, method=None)                                   # None/backfill/bfill/pad/ffill
@@ -504,6 +507,9 @@ div > a            # a directly inside div
 div + p            # p immediately after div
 div ~ p            # p after div
 a[target=_blank]   # a with attribute target="_blank"
+div[style*="border:1px"]     # div with style contain "border:1px"
+div[style^="border:1px"]     # div with style begin with "border:1px"
+div[style$="border:1px"]     # div with style end with "border:1px"
 ```
 ### Matplotlib Cheatsheet
 ```python
@@ -540,10 +546,10 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzA0NTUyNDI4LDEzNDEyMDgzMDYsODg0NT
-UwNTc3LC0yMjc4NTc0NSwtMTU3ODkxMTU5NywtMTY4NTQxMDg2
-NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1NTYwLDE5Mj
-kyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5
-NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYzNjAxMSwtMj
-A4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbMjU2NTYzNTMsMzA0NTUyNDI4LDEzNDEyMD
+gzMDYsODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3ODkxMTU5Nywt
+MTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4Mj
+A1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjks
+LTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOT
+YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
 -->
