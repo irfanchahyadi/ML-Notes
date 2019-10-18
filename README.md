@@ -4,8 +4,8 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 - [Preparation](#Preparation)
 	- [Importer](#Importer)
 	- [Get Data](#Get-Data)
-		- [From Other Source](#From-Other-Source)
-		- [Scraping](#Scraping)
+		- From Other Source : [Flat File](#Flat-File), [SQL](#SQL), [AWS Athena](#AWS-Athena), [GSpread](#GSpread)
+		- Scraping : [BeautifulSoup](#BeautifulSoup), [Scrapy](#Scrapy)
 - [Exploratory Data Analysis](#Exploratory-Data-Analysis)
 	- [Indexing](#Indexing)
 	- [Describe](#Describe)
@@ -85,35 +85,6 @@ c = [0,1,2,3]                                          # for index
 df = pd.DataFrame(a, columns=list('ab'), index=c)      # from list
 df = pd.DataFrame(b)                                   # from dictionary, default index = [0,1,2,...]
 ```
-#### From Other Source
-```python
-# Read data from CSV / Excel file
-df = pd.read_csv('data.csv', sep=',', index_col='col1', na_values='-', parse_dates=True)
-df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
-
-# Read data from SQL
-conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)       # mysql
-conn  = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
-       SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')         # sql server
-query = 'select * from employee where name = %(name)s'
-df = pd.read_sql(query, conn, params={'name': 'value'})
-
-# Read data from AWS Athena
-conn  = pyathena.connect(aws_access_key_id=id, aws_secret_access_key=secret, 
-                         s3_staging_dir=stgdir, region_name=region)
-query = 'select * from employee'
-df = pd.read_sql(query, conn)
-
-# Read data from GSpread
-scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-client = gspread.authorize(creds)
-sheet = client.open('FileNameOnGDrive').get_worksheet(0)
-df = get_as_dataframe(sheet, usecols=list(range(10)))       # use additional gspread_dataframe lib
-data = sheet.get_all_values()
-header = data.pop(0)
-df = pd.DataFrame(data, columns=header)                     # only use gspread
-```
 Generate random data.
 ```python
 X = np.random.randn(100, 3)                              # 100 x 3 random std normal dist array
@@ -136,15 +107,45 @@ d = load_boston()                                          # load data dict 'lik
 df = pd.DataFrame(d.data, columns=d.feature_names)         # create dataframe with column name
 df['TargetCol'] = d.target                                 # add TargetCol column
 ```
-#### Scraping
-With Requests + BeautifulSoup
+#### Flat File
+```python
+df = pd.read_csv('data.csv', sep=',', index_col='col1', na_values='-', parse_dates=True)
+df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
+```
+#### SQL
+```python
+conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)       # mysql
+conn  = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
+       SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')         # sql server
+query = 'select * from employee where name = %(name)s'
+df = pd.read_sql(query, conn, params={'name': 'value'})
+```
+#### AWS Athena
+```python
+conn  = pyathena.connect(aws_access_key_id=id, aws_secret_access_key=secret, 
+                         s3_staging_dir=stgdir, region_name=region)
+query = 'select * from employee'
+df = pd.read_sql(query, conn)
+```
+#### GSpread
+```python
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+client = gspread.authorize(creds)
+sheet = client.open('FileNameOnGDrive').get_worksheet(0)
+df = get_as_dataframe(sheet, usecols=list(range(10)))       # use additional gspread_dataframe lib
+data = sheet.get_all_values()
+header = data.pop(0)
+df = pd.DataFrame(data, columns=header)                     # only use gspread
+```
+#### BeautifulSoup
 ```python
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'}
 res = requests.get(url, headers=HEADERS)                 # request url, with user agent on headers
 soup = bs4.BeautifulSoup(res.content, 'html.parser')     # create soup object
 rows = soup.select('div.product')                        # selector, see misc
 ```
-With Scrapy
+#### Scrapy
 ```python
 # Shell command:
 scrapy startproject project_name           # create new project
@@ -204,6 +205,7 @@ df.skew()                          # degree of symetrical, 0 symmetry, + rightha
 df.kurt()                          # degree of peakedness, 0 normal dist, + too peaked, - almost flat
 df.corr()                          # correlation matrix
 df.isnull().sum()                  # count null value each column, df.isnull() = df.isna()
+df.col1.unique()                   # return unique value of col1
 df.nunique()                       # unique value each column
 df.sample(10)                      # return random sample 10 rows
 df['col1'].value_counts(normalize=True)      # frequency each value
@@ -329,8 +331,21 @@ g.map(plt.scatter, 'col4', 'col5')                            # or with scatter 
 ```
 ## Preprocessing
 ### Feature Engineering
+Basic Operation
 ```python
+df['new_col'] = df.col1 / 1000                       # create new column
+df = df.drop('col1', axis=1)                         # drop column
+df = df.drop(df[df.col1 == 'abc'].index)             # drop row which col1 equal to 'abc'
+df.col1 = df.col1.astype(str)                        # convert column to string
+df.col1 = pd.to_numeric(df.col1, error='coerce')     # convert column to numeric
 df.col1 = pd.Categorical(df.col1, categories=['A','B','C'], ordered=True)     # convert column to category
+df.col1.str[:2]     # access first 2 digit of string, also can use other string api
+```
+Map, Apply, Applymap
+```python
+# map
+# apply
+# applymap
 ```
 ### Missing Value
 ```python
@@ -546,10 +561,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjU2NTYzNTMsMzA0NTUyNDI4LDEzNDEyMD
-gzMDYsODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3ODkxMTU5Nywt
-MTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4Mj
-A1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjks
-LTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOT
-YzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0NjE4XX0=
+eyJoaXN0b3J5IjpbLTEyMTg0ODQwMzgsMjU2NTYzNTMsMzA0NT
+UyNDI4LDEzNDEyMDgzMDYsODg0NTUwNTc3LC0yMjc4NTc0NSwt
+MTU3ODkxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1Nz
+AzODI1MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUy
+NCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNj
+U2NDE1NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0
+NjE4XX0=
 -->
