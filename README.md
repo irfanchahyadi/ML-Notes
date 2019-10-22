@@ -417,6 +417,39 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 ```
 ### Pipeline
 
+## Neural Network
+### Build Model
+```python
+# Model
+model = Sequential()
+# First Layer
+model.add(Dense(20, activation='relu', input_shape=(X_train.shape[1],)))
+# Hidden Layer
+model.add(Dense(20, activation='relu'))
+# Output Layer
+model.add(Dense(CLASS, activation='softmax'))
+# Compile Model
+model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
+# Model Summary
+model.summary()
+```
+### Create Callback
+```python
+callback = [ReduceLROnPlateau(patience=5),     # reduce learning rate when metrics stop improving
+            EarlyStopping(patience=5),         # stop training when metrics stop improving
+            ModelCheckpoint(filepath='best_model.h5', save_best_only=True)]     # save model every period
+```
+### Train Model
+```python
+history=model.fit(X_train, y_train, 
+                  epochs=100,
+                  validation_data=(X_val, y_val),
+                  callbacks=callback)
+```
+### Evaluate Model
+```python
+score = round(model.evaluate(X_train, y_train)[1]*100, 2)
+```
 ## Miscellaneous
 ### Basic Python
 #### Basic data type
@@ -431,23 +464,37 @@ s.find('abc')          # return index where substring 'abc' found in s
 s.strip()              # return removed leading and trailing space, also use lstrip() or rstrip()
 '1,2,3'.split(',')     # return list of ['1', '2', '3']
 ```
-List & Tuple
+List, Tuple & Set
 ```python
-s = [1,2,3,4]   # or use list(1,2,3,4) 
-1 in s          # return True if 1 found s
-s1 + s2         # concate s1 and s2
-s[1]            # second item in s
-s[1:5]          # slice s from 1 to 5 (4 element)
-s[1:5:-1]       # slice s from 1 to 5 backwards
-s.index(3)      # return index of 3 in s
-s.append(3)     # append 3 to end of s
-s.reverse()     # reverse s, not return anything
-```
-Set
-```python
+s = [1,2,3,4]      # or use list(1,2,3,4) 
+1 in s             # return True if 1 found s
+s1 + s2            # concate s1 and s2
+s[1]               # second item in s
+s[1:5]             # slice s from 1 to 5 (4 element)
+s[1:5:-1]          # slice s from 1 to 5 backwards
+s.index(3)         # return index of 3 in s
+s.append(3)        # append 3 to end of s
+s.reverse()        # reverse s, not return anything
+s = (1,2,3,4)      # create tuple, immutable list, or use tuple(1,2,3,4)
+s = set(1,2,3,4)   # create set, unique list
+for idx, val in enumerate(s):     # iterate over list with index
+    print(idx, val)
 ```
 Dictionary
 ```python
+d = {'a': 1, 'b': 2, 'c': 3}   # or use dict(a=1,b=2,c=3)
+d.keys()                       # return all keys, or use list(d)
+d.values()                     # return all values
+'a' in d                       # return True if 'a' is key in d
+d['a']                         # get value with keys='a'
+del d['a']                     # remove item with keys='a'
+for key, val in d.items():     # iterate over dict
+    print(key, val)
+```
+Numpy.Array
+```python
+a = np.array([[1,2],[3,4]])     # create array 2x2
+
 ```
 #### Pickle
 ```python
@@ -563,7 +610,7 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkwNTA5NjE3OCwtMTIxODQ4NDAzOCwyNT
+eyJoaXN0b3J5IjpbLTY4ODQxOTE1MCwtMTIxODQ4NDAzOCwyNT
 Y1NjM1MywzMDQ1NTI0MjgsMTM0MTIwODMwNiw4ODQ1NTA1Nzcs
 LTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00Mz
 MzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0
