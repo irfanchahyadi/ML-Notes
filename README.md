@@ -356,6 +356,8 @@ X = enc.transform(X)             # perform imputing, or use .fit_transform
 ```
 ### Categorical Feature
 ```python
+df = pd.get_dummies(df, columns=['col1'], prefix='col1')
+
 enc = LabelBinarizer()                          # label with value 0 or 1
 enc = LabelEncoder()                            # label with value 0 to n-1 
 enc = OrdinalEncoder()                          # label with value 0 to n-1, multi column 
@@ -561,11 +563,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMTg0ODQwMzgsMjU2NTYzNTMsMzA0NT
-UyNDI4LDEzNDEyMDgzMDYsODg0NTUwNTc3LC0yMjc4NTc0NSwt
-MTU3ODkxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1Nz
-AzODI1MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUy
-NCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNj
-U2NDE1NjksMTMwOTYzNjAxMSwtMjA4OTAxMDQ3MiwxMjc4MDY0
-NjE4XX0=
+eyJoaXN0b3J5IjpbLTkwNTA5NjE3OCwtMTIxODQ4NDAzOCwyNT
+Y1NjM1MywzMDQ1NTI0MjgsMTM0MTIwODMwNiw4ODQ1NTA1Nzcs
+LTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00Mz
+MzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0
+NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MD
+g4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEw
+NDcyXX0=
 -->
