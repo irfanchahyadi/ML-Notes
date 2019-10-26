@@ -532,7 +532,10 @@ $    # end string
 \r   # return
 
 # Sample:
-'Chapter\s\d{1,4}[\,\.]?\d{0,1}'     # Got: Chapter 1, Chapter 23, Chapter 649, Chapter 120.5, Chapter 120,5
+'Chapter\s\d{1,4}[\,\.]?\d{0,1}'     # get: Chapter 1, Chapter 23, Chapter 649, Chapter 120.5, Chapter 120,5
+
+# Usage:
+re.findall(r"\w+ly", text)     # return ['carefully', 'quickly']
 ```
 ### Datetime Cheatsheet
 ```python
@@ -557,6 +560,12 @@ $    # end string
 
 # Sample:
 '%d-%m-%Y %H:%M:%S'     # Personal preferred datetime, ex: 16-08-1988 21:30:00
+
+# Usage:
+cur_date = datetime.datetime.now()     # return current datetime
+cur_date.strftime('%d/%m/%Y')          # convert datetime object to string
+datetime.datetime.strptime('16/08/1988', '%d/%m%Y')     # convert string to object
+
 ```
 ### CSS Selector Cheatsheet
 ```python
@@ -610,11 +619,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY4ODQxOTE1MCwtMTIxODQ4NDAzOCwyNT
-Y1NjM1MywzMDQ1NTI0MjgsMTM0MTIwODMwNiw4ODQ1NTA1Nzcs
-LTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNjg1NDEwODY0LC00Mz
-MzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0
-NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMTg0MDMzNjk3LDE2MD
-g4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2MDExLC0yMDg5MDEw
-NDcyXX0=
+eyJoaXN0b3J5IjpbMjQxMzY2MjIyLC02ODg0MTkxNTAsLTEyMT
+g0ODQwMzgsMjU2NTYzNTMsMzA0NTUyNDI4LDEzNDEyMDgzMDYs
+ODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3ODkxMTU5NywtMTY4NT
+QxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1NTYw
+LDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLTE4ND
+AzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYzNjAx
+MV19
 -->
