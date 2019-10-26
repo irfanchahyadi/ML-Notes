@@ -192,6 +192,8 @@ df[df.col1.isnull()]                     # filter by is null, otherwise use .not
 df.filter(regex = 'pattern')             # filter by regex pattern, see misc
 for idx, row in df.iterrows():           # iterate dataframe by rows
     print(row['col1'])                   # return index and series of row
+
+pd.options.display.max_rows = len(df)    # default 60 rows
 ```
 ### Describe
 ```python
@@ -403,6 +405,9 @@ clf = DecisionTreeClassifier(max_depth=3, criterion='entropy')
 # criterion = gini/entropy, other params: min_sample_split, min_sample_leaf, max_features
 ```
 ### Evaluation
+```python
+accuracy = model.score(X_test, y_test)     # get accuracy (depend on model)
+```
 ### Hyperparameter Tuning
 ```python
 # Grid Sarch CV: Try every parameter combination
@@ -453,6 +458,15 @@ score = round(model.evaluate(X_train, y_train)[1]*100, 2)
 ## Miscellaneous
 ### Basic Python
 #### Basic data type
+Math
+```python
+np.ceil(5.7)        # return 6.0
+np.floor(5.7)       # return 5.0
+np.round(5.7)       # return 6.0
+round(5.7)          # return 6
+s.min()
+s.max()
+```
 String
 ```python
 s.isalnum()            # return True if alphabetic or numeric
@@ -619,11 +633,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjQxMzY2MjIyLC02ODg0MTkxNTAsLTEyMT
-g0ODQwMzgsMjU2NTYzNTMsMzA0NTUyNDI4LDEzNDEyMDgzMDYs
-ODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3ODkxMTU5NywtMTY4NT
-QxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1MywtNzA4MjA1NTYw
-LDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4NzgxMTQzMjksLTE4ND
-AzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1NjksMTMwOTYzNjAx
-MV19
+eyJoaXN0b3J5IjpbLTE1NjIwMjE2NjgsLTY4ODQxOTE1MCwtMT
+IxODQ4NDAzOCwyNTY1NjM1MywzMDQ1NTI0MjgsMTM0MTIwODMw
+Niw4ODQ1NTA1NzcsLTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNj
+g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
+NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
+g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
+MDExXX0=
 -->
