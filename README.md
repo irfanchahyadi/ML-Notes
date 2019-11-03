@@ -30,7 +30,11 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 	- [Pipeline](#Pipeline)
 - [Neural Network](#Neural-Network)
 	- Tensor Flow : 
-	- Keras Model : [Build Model](#Build-Keras-Model), [Create Callback](#Create-Keras-Callback), [Train Model](#Train-Keras-Model), [Evaluate Model](#Evaluate-Keras-Model)
+	- Keras Model : 
+		- [Build Model](#Build-Keras-Model)
+		- [Create Callback](#Create-Keras-Callback)
+		- [Train Model](#Train-Keras-Model)
+		- [Evaluate Model](#Evaluate-Keras-Model)
 	- PyTorch : 
 - [Miscellaneous](#Miscellaneous)
 	- [Basic Python](#Basic-Python)
@@ -645,11 +649,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDE4NDg5NTIsLTE1NjIwMjE2NjgsLT
-Y4ODQxOTE1MCwtMTIxODQ4NDAzOCwyNTY1NjM1MywzMDQ1NTI0
-MjgsMTM0MTIwODMwNiw4ODQ1NTA1NzcsLTIyNzg1NzQ1LC0xNT
-c4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQwMzIsODU3MDM4
-MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LD
-g3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0
-MTU2OV19
+eyJoaXN0b3J5IjpbLTk2MzIzNTExNiwtMTU2MjAyMTY2OCwtNj
+g4NDE5MTUwLC0xMjE4NDg0MDM4LDI1NjU2MzUzLDMwNDU1MjQy
+OCwxMzQxMjA4MzA2LDg4NDU1MDU3NywtMjI3ODU3NDUsLTE1Nz
+g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
+NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
+c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
+NTY5XX0=
 -->
