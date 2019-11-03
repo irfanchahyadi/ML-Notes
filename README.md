@@ -597,6 +597,11 @@ a[target=_blank]   # a with attribute target="_blank"
 div[style*="border:1px"]     # div with style contain "border:1px"
 div[style^="border:1px"]     # div with style begin with "border:1px"
 div[style$="border:1px"]     # div with style end with "border:1px"
+
+# Usage:
+links = soup.select('div.abc > a')
+for link in links:
+    print(link['href'])
 ```
 ### Matplotlib Cheatsheet
 ```python
@@ -633,11 +638,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NjIwMjE2NjgsLTY4ODQxOTE1MCwtMT
-IxODQ4NDAzOCwyNTY1NjM1MywzMDQ1NTI0MjgsMTM0MTIwODMw
-Niw4ODQ1NTA1NzcsLTIyNzg1NzQ1LC0xNTc4OTExNTk3LC0xNj
-g1NDEwODY0LC00MzMzODQwMzIsODU3MDM4MjUzLC03MDgyMDU1
-NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LDg3ODExNDMyOSwtMT
-g0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0MTU2OSwxMzA5NjM2
-MDExXX0=
+eyJoaXN0b3J5IjpbNDUzNTc4MDEyLC0xNTYyMDIxNjY4LC02OD
+g0MTkxNTAsLTEyMTg0ODQwMzgsMjU2NTYzNTMsMzA0NTUyNDI4
+LDEzNDEyMDgzMDYsODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3OD
+kxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1
+MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4Nz
+gxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1
+NjldfQ==
 -->
