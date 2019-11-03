@@ -28,6 +28,10 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 	- [Evaluation](#Evaluation)
 	- [Hyperparameter Tuning](#Hyperparameter-Tuning)
 	- [Pipeline](#Pipeline)
+- [Neural Network](#Neural-Network)
+	- Tensor Flow : 
+	- Keras Model : [Build Model](#Build-Keras-Model), [Create Callback](#Create-Keras-Callback), [Train Model](#Train-Keras-Model), [Evaluate Model](#Evaluate-Keras-Model)
+	- PyTorch : 
 - [Miscellaneous](#Miscellaneous)
 	- [Basic Python](#Basic-Python)
 	- [Regex Cheatsheet](#Regex-Cheatsheet)
@@ -144,6 +148,8 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 res = requests.get(url, headers=HEADERS)                 # request url, with user agent on headers
 soup = bs4.BeautifulSoup(res.content, 'html.parser')     # create soup object
 rows = soup.select('div.product')                        # selector, see misc
+text = soup.select('div.product > a').text               # get text of link
+href = soup.select('div.product > a')['href']            # get href attribute of link
 ```
 #### Scrapy
 ```python
@@ -423,7 +429,8 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 ### Pipeline
 
 ## Neural Network
-### Build Model
+### Keras Model
+### Build Keras Model
 ```python
 # Model
 model = Sequential()
@@ -438,20 +445,20 @@ model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accur
 # Model Summary
 model.summary()
 ```
-### Create Callback
+### Create Keras Callback
 ```python
 callback = [ReduceLROnPlateau(patience=5),     # reduce learning rate when metrics stop improving
             EarlyStopping(patience=5),         # stop training when metrics stop improving
             ModelCheckpoint(filepath='best_model.h5', save_best_only=True)]     # save model every period
 ```
-### Train Model
+### Train Keras Model
 ```python
 history=model.fit(X_train, y_train, 
                   epochs=100,
                   validation_data=(X_val, y_val),
                   callbacks=callback)
 ```
-### Evaluate Model
+### Evaluate KerasModel
 ```python
 score = round(model.evaluate(X_train, y_train)[1]*100, 2)
 ```
@@ -638,11 +645,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUzNTc4MDEyLC0xNTYyMDIxNjY4LC02OD
-g0MTkxNTAsLTEyMTg0ODQwMzgsMjU2NTYzNTMsMzA0NTUyNDI4
-LDEzNDEyMDgzMDYsODg0NTUwNTc3LC0yMjc4NTc0NSwtMTU3OD
-kxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0MDMyLDg1NzAzODI1
-MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMTc4MTY5OTUyNCw4Nz
-gxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYzODY5LDEzNjU2NDE1
-NjldfQ==
+eyJoaXN0b3J5IjpbLTE1NDE4NDg5NTIsLTE1NjIwMjE2NjgsLT
+Y4ODQxOTE1MCwtMTIxODQ4NDAzOCwyNTY1NjM1MywzMDQ1NTI0
+MjgsMTM0MTIwODMwNiw4ODQ1NTA1NzcsLTIyNzg1NzQ1LC0xNT
+c4OTExNTk3LC0xNjg1NDEwODY0LC00MzMzODQwMzIsODU3MDM4
+MjUzLC03MDgyMDU1NjAsMTkyOTIyMzM0NiwxNzgxNjk5NTI0LD
+g3ODExNDMyOSwtMTg0MDMzNjk3LDE2MDg4NjM4NjksMTM2NTY0
+MTU2OV19
 -->
