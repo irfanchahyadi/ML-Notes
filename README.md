@@ -333,6 +333,7 @@ fig, ax = plt.subplots(1, 2, sharex=False, sharey=False, figsize=(15,4))    # su
 plt.title('title')          # or ax.set_title
 plt.xlabel('foo')           # or plt.ylabel, ax.set_xlabel, ax.set_ylabel
 plt.xticks(x, labels)       # x and labels list, or ax.set_xticks
+plt.xticks(rotation=90)     # rotate xticks
 plt.xlim(0, 100)            # or ylim, ax.set_xlim, ax.set_ylim
 plt.legend(loc='best')      # or ax.legend, loc = upper/lower/right/left/center/upper right
 plt.rcParams['figure.figsize'] = (16, 10)      # setting default figsize
@@ -649,11 +650,11 @@ viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1,
 plt.colormaps()     # return all possible cmap
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk2MzIzNTExNiwtMTU2MjAyMTY2OCwtNj
-g4NDE5MTUwLC0xMjE4NDg0MDM4LDI1NjU2MzUzLDMwNDU1MjQy
-OCwxMzQxMjA4MzA2LDg4NDU1MDU3NywtMjI3ODU3NDUsLTE1Nz
-g5MTE1OTcsLTE2ODU0MTA4NjQsLTQzMzM4NDAzMiw4NTcwMzgy
-NTMsLTcwODIwNTU2MCwxOTI5MjIzMzQ2LDE3ODE2OTk1MjQsOD
-c4MTE0MzI5LC0xODQwMzM2OTcsMTYwODg2Mzg2OSwxMzY1NjQx
-NTY5XX0=
+eyJoaXN0b3J5IjpbLTM2MzgyODEzOSwtOTYzMjM1MTE2LC0xNT
+YyMDIxNjY4LC02ODg0MTkxNTAsLTEyMTg0ODQwMzgsMjU2NTYz
+NTMsMzA0NTUyNDI4LDEzNDEyMDgzMDYsODg0NTUwNTc3LC0yMj
+c4NTc0NSwtMTU3ODkxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0
+MDMyLDg1NzAzODI1MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMT
+c4MTY5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYz
+ODY5XX0=
 -->
