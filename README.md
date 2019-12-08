@@ -534,34 +534,35 @@ except FileNotFoundError:                      # if pickle file not found
         pickle.dump(data, f)                   # save data to pickle
 ```
 ### Regex Cheatsheet
-```python
+```
 # Cheatsheet:
-\d   # any number
-\D   # anything but number
-\w   # any character
-\W   # anything but character
-.    # any character except newline
-\b   # whitespace
-\.   # dot character
-+    # match 1 or more
-*    # match 0 or 1
-?    # match 0 or 1
-^    # start string
-$    # end string
-{}   # expect 1-3, ex \d{3} expect 3 digit number, \d{1,3} expect 1-3 digit number
-[]   # range, ex [A-Z] expect all capital letter, [abcd] expect letter a, b, c, d
-|    # either or, ex \d{1,4}|[A-z]{4,10} expect 1-4 digit number or 4-10 character word
-\n   # newline
-\s   # space
-\t   # tab
-\e   # escape
-\r   # return
+\d      # any number
+\D      # anything but number
+\w      # any character
+\W      # anything but character
+.       # any character except newline
+\b      # whitespace
+\.      # dot character
++       # match 1 or more
+*       # match 0 or 1
+?       # match 0 or 1
+^       # start string
+$       # end string
+{}      # expect 1-3, ex \d{3} expect 3 digit number, \d{1,3} expect 1-3 digit number
+[]      # range, ex [A-Z] all capital letter, [abcd] letter a, b, c, d, [^abc] letter NOT a, b, c
+|       # either or, ex \d{1,4}|[A-z]{4,10} expect 1-4 digit number or 4-10 character word
+\n      # newline
+\s      # space
+\t      # tab
+\e      # escape
+\r      # return
 
 # Sample:
-'Chapter\s\d{1,4}[\,\.]?\d{0,1}'     # get: Chapter 1, Chapter 23, Chapter 649, Chapter 120.5, Chapter 120,5
+'Chapter\s\d{1,4}[\,\.]?\d{0,1}'        # get: Chapter 1, Chapter 23, Chapter 649, Chapter 120.5, Chapter 120,5
+'[a-zA-Z0-9.]+@[a-zA-Z0-9-]+\.\w+'      # get email address
 
 # Usage:
-re.findall(r"\w+ly", text)     # return ['carefully', 'quickly']
+re.findall(r"\w+ly", text)              # return ['carefully', 'quickly']
 ```
 ### Datetime Cheatsheet
 ```python
@@ -591,6 +592,7 @@ re.findall(r"\w+ly", text)     # return ['carefully', 'quickly']
 cur_date = datetime.datetime.now()     # return current datetime
 cur_date.strftime('%d/%m/%Y')          # convert datetime object to string
 datetime.datetime.strptime('16/08/1988', '%d/%m%Y')     # convert string to object
+datetime.datetime.fromtimestamp(1575278092)             # convert timestamp datetime to datetime
 
 ```
 ### CSS Selector Cheatsheet
@@ -649,12 +651,3 @@ w   # white
 viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1, Set2, Set3
 plt.colormaps()     # return all possible cmap
 ```
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM2MzgyODEzOSwtOTYzMjM1MTE2LC0xNT
-YyMDIxNjY4LC02ODg0MTkxNTAsLTEyMTg0ODQwMzgsMjU2NTYz
-NTMsMzA0NTUyNDI4LDEzNDEyMDgzMDYsODg0NTUwNTc3LC0yMj
-c4NTc0NSwtMTU3ODkxMTU5NywtMTY4NTQxMDg2NCwtNDMzMzg0
-MDMyLDg1NzAzODI1MywtNzA4MjA1NTYwLDE5MjkyMjMzNDYsMT
-c4MTY5OTUyNCw4NzgxMTQzMjksLTE4NDAzMzY5NywxNjA4ODYz
-ODY5XX0=
--->
