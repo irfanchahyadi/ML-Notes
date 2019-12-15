@@ -125,6 +125,7 @@ df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
 conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)       # mysql
 conn  = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
        SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')         # sql server
+conn  = create_engine('mysql+pymysql://username:password@host/database')       # with sqlalchemy.create_engine
 query = 'select * from employee where name = %(name)s'
 df = pd.read_sql(query, conn, params={'name': 'value'})
 ```
@@ -349,17 +350,40 @@ Basic Operation
 df['new_col'] = df.col1 / 1000                       # create new column
 df = df.drop('col1', axis=1)                         # drop column
 df = df.drop(df[df.col1 == 'abc'].index)             # drop row which col1 equal to 'abc'
-df.col1 = df.col1.astype(str)                        # convert column to string
+df.col1 = df.col1.astype(str)                        # convert column to string, also use 'category', 'int32'
 df.col1 = pd.to_numeric(df.col1, error='coerce')     # convert column to numeric
+df.col1 = pd.to_datetime(df.col1, error='coerce')    # convert column to datetime
 df.col1 = pd.Categorical(df.col1, categories=['A','B','C'], ordered=True)     # convert column to category
-df.col1.str[:2]     # access first 2 digit of string, also can use other string api
+
+df.col1.str[:2]                     # access string method/properties
+df.col1.dt.strftime('%d/%m/%Y')     # access datetime method/properties
 ```
 Map, Apply, Applymap
 ```python
-# map
-# apply
-# applymap
+# Map (Series only)
+d = {1: 'one', 2: 'two', 3: 'three'}
+df.col1.map(d)
+
+# Apply (Series)
+df.col1.apply(func)          # element wise
+
+# Apply (Dataframe)
+sum_col1, sum_col2 = df[['col1', 'col2']].apply(sum)       # apply to axis=0 (row)
+df['new_col'] = df.apply(lambda x: x[0] + x[1], axis=1)    # apply to axis=1 (column)
+
+# Applymap (Dataframe only)
+df.applymap(func)            # element wise
+
 ```
+
+### Merge Data
+```python
+# Append
+# Concat
+# Join
+# Merge
+```
+
 ### Missing Value
 ```python
 df = df.fillna(0, method=None)                                   # None/backfill/bfill/pad/ffill
@@ -381,6 +405,11 @@ X = enc.transform(X)             # perform encoding, or use .fit_transform
 X = enc.inverse_transform(X)     # decode back to original
 ```
 ### Transform
+```python
+
+
+```
+
 ### Scaling and Normalize
 ```python
 scaler = StandardScaler()                              # scale data to mean 0 and stddev 1
@@ -650,4 +679,8 @@ w   # white
 # Cmap Cheatsheet:
 viridis, plasma, Reds, cool, hot, coolwarm, hsv, Pastel1, Pastel2, Paired, Set1, Set2, Set3
 plt.colormaps()     # return all possible cmap
+
+# Usage:
+plt.plot(x, y, 'go--')
+plt.plot(x, y, color='g', marker='o', linestyle='--')
 ```
