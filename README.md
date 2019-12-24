@@ -379,7 +379,10 @@ df.applymap(func)            # element wise
 ### Merge Data
 ```python
 # Append
+df1.append(df2, ignore_index=True)                # stacked vertical with reset index
 # Concat
+pd.concat([df1, df2, df3], ignore_index=True)     # stacked vertical with reset index, axis=0
+
 # Join
 # Merge
 ```
@@ -561,6 +564,11 @@ except FileNotFoundError:                      # if pickle file not found
     data = some_process()                      # run some process to get data
     with open('data.pickle', 'wb') as f:       # create new blank pickle file
         pickle.dump(data, f)                   # save data to pickle
+```
+
+#### Others
+```python
+os.listdir()          # get all filename on current directory
 ```
 ### Regex Cheatsheet
 ```
