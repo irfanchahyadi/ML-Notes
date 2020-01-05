@@ -3,7 +3,7 @@ Complete personal notes for performing Data Analysis, Preprocessing, and Trainin
 ## Table of contents
 - [Preparation](#Preparation)
 	- [Importer](#Importer)
-	- [Get Data](#Get-Data)
+	- [Input Output](#Input-Output)
 		- From Other Source : [Flat File](#Flat-File), [SQL](#SQL), [AWS Athena](#AWS-Athena), [GSpread](#GSpread)
 		- Scraping : [BeautifulSoup](#BeautifulSoup), [Scrapy](#Scrapy)
 - [Exploratory Data Analysis](#Exploratory-Data-Analysis)
@@ -84,7 +84,7 @@ import statsmodels.api as sm            # statistic lib for python
 import requests                         # http for human
 from bs4 import BeautifulSoup           # tool for scrape web page
 ```
-### Get Data
+### Input Output
 Create DataFrame from list / dict.
 ```python
 a = [[1,2], [3,4], [5,6], [7,8]]
@@ -122,12 +122,13 @@ df = pd.read_excel('data.xlsx', sheet_name='Sheet1', usecols='A,C,E:F')
 ```
 #### SQL
 ```python
-conn  = pymysql.connect(user=user, password=pwd, database=db, host=host)       # mysql
-conn  = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
-       SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')         # sql server
-conn  = create_engine('mysql+pymysql://username:password@host/database')       # with sqlalchemy.create_engine
+con = pymysql.connect(user=user, password=pwd, database=db, host=host)       # mysql
+con = pyodbc.connect('DRIVER={ODBC Driver 11 for SQL Server};
+       SERVER=server_name;DATABASE=db_name;UID=username;PWD=password')       # sql server
+con = create_engine('mysql+pymysql://username:password@host/database')       # with sqlalchemy.create_engine
 query = 'select * from employee where name = %(name)s'
-df = pd.read_sql(query, conn, params={'name': 'value'})
+df = pd.read_sql(query, con, params={'name': 'value'})                       # qieru or table name
+df.to_sql(table_name, con, index=False, if_exists='replace')                 # if_exists = replace/append
 ```
 #### AWS Athena
 ```python
@@ -198,8 +199,9 @@ df.iloc[5:10, 3:5]                       # return dataframe from row 5:10 column
 df.head()                                # return first 5 rows, df.tail() return last 5 rows
 df[df.col1 == 'abc']                     # filter by comparison, use ==, !=, >, <, >=, <=
 df[(df.col1 == 'abc') & (df.col2 > 50)]  # conditional filter, use &(and), |(or), ~(not), ^(xor), .any(), .all()
-df[df.col1.isin(['a','b'])]              # filter by is in list
-df[df.col1.isnull()]                     # filter by is null, otherwise use .notnull()
+df[df.col1.isna()]                       # filter by col1 is na
+df[df.col1.isnull()]                     # filter by col1 is null, otherwise use .notnull()
+df[df.col1.isin(['a','b'])]              # filter by col1 is in list
 df.filter(regex = 'pattern')             # filter by regex pattern, see misc
 for idx, row in df.iterrows():           # iterate dataframe by rows
     print(row['col1'])                   # return index and series of row
@@ -223,6 +225,7 @@ df.nunique()                       # unique value each column
 df.sample(10)                      # return random sample 10 rows
 df['col1'].value_counts(normalize=True)      # frequency each value
 df.sort_values(['col1'], ascending=True)     # sort by col1 ascending, .sort_index() for index
+df.drop_duplicates(subset='col1', keep='first', inplace=True)     # drop duplicate based on subset
 ```
 ### Aggregate
 ```python
@@ -599,7 +602,9 @@ $       # end string
 '[a-zA-Z0-9.]+@[a-zA-Z0-9-]+\.\w+'      # get email address
 
 # Usage:
-re.findall(r"\w+ly", text)              # return ['carefully', 'quickly']
+re.findall(r"\w+ly", text)                      # return ['carefully', 'quickly']
+phone = re.sub("[a-zA-Z '()+-]", '', phone)     # substitute character with ''
+
 ```
 ### Datetime Cheatsheet
 ```python
