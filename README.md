@@ -341,6 +341,7 @@ plt.xticks(rotation=90)     # rotate xticks
 plt.xlim(0, 100)            # or ylim, ax.set_xlim, ax.set_ylim
 plt.legend(loc='best')      # or ax.legend, loc = upper/lower/right/left/center/upper right
 plt.rcParams['figure.figsize'] = (16, 10)      # setting default figsize
+plt.style.use('classic')    # find all style on plt.style.available
 
 g = sns.FacetGrid(df, row='col1', col='col2', hue='col3')     # comparable subplot row by col1 col by col2
 g.map(plt.hist, 'col4', bins=50)                              # with histogram count col4
@@ -360,6 +361,7 @@ df.col1 = pd.Categorical(df.col1, categories=['A','B','C'], ordered=True)     # 
 
 df.col1.str[:2]                     # access string method/properties
 df.col1.dt.strftime('%d/%m/%Y')     # access datetime method/properties
+df.values                           # convert dataframe to numpy array
 ```
 Map, Apply, Applymap
 ```python
@@ -376,6 +378,9 @@ df['new_col'] = df.apply(lambda x: x[0] + x[1], axis=1)    # apply to axis=1 (co
 
 # Applymap (Dataframe only)
 df.applymap(func)            # element wise
+
+# Numpy Vectorize
+np.vectorize(func)(A)        # element wise
 
 ```
 
@@ -409,6 +414,8 @@ enc = OneHotEncoder(handle_unknown='error')     # create dummy n column binarize
 enc.fit(X)
 X = enc.transform(X)             # perform encoding, or use .fit_transform
 X = enc.inverse_transform(X)     # decode back to original
+
+
 ```
 ### Transform
 ```python
@@ -434,6 +441,11 @@ X = scaler.inverse_transform(X)     # scale back to original
 ```python
 # Train test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=42, stratify=y)
+
+# Train test split with Numpy
+np.random.shuffle(data)
+border = round(data.shap[0] * 0.7)
+train, test = np.split(data, [border])
 
 # Cross Validation
 cv = cross_val_score(model, X, y, cv=5, scoring='r2', )     # (Stratified) KFold CV, return list of score
@@ -476,12 +488,18 @@ randomsearch_cv.fit(X, y)     # print grid_cv.best_params_ and grid_cv.best_scor
 model = Sequential()
 # First Layer
 model.add(Dense(20, activation='relu', input_shape=(X_train.shape[1],)))
+
 # Hidden Layer
 model.add(Dense(20, activation='relu'))
+
 # Output Layer
 model.add(Dense(CLASS, activation='softmax'))
+
 # Compile Model
 model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
+# loss = categorical_crossentropy, mean_squared_error
+# optimizer = sgd, adam
+
 # Model Summary
 model.summary()
 ```
@@ -493,14 +511,14 @@ callback = [ReduceLROnPlateau(patience=5),     # reduce learning rate when metri
 ```
 ### Train Keras Model
 ```python
-history=model.fit(X_train, y_train, 
-                  epochs=100,
-                  validation_data=(X_val, y_val),
-                  callbacks=callback)
+history = model.fit(X_train, y_train, epochs=100, validation_data=(X_val, y_val), callbacks=callback)
+# history.history return dict of every metrics each epoch
 ```
-### Evaluate KerasModel
+### Evaluate Keras Model
 ```python
-score = round(model.evaluate(X_train, y_train)[1]*100, 2)
+pred = model.predict(X_val).argmax(axis=1)                            # multiple prediction
+pred = model.predict(X_train[0, :].reshape(1, col_shape)).argmax()    # single prediction (first sample)
+score = round(model.evaluate(X_train, y_train)[1]*100, 2)             # metric score
 ```
 ## Miscellaneous
 ### Basic Python
