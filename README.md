@@ -393,6 +393,9 @@ pd.concat([df1, df2, df3], ignore_index=True)     # stacked vertical with reset 
 
 # Join
 # Merge
+df1.merge(df2, on='key_col')
+pd.merge(df1, df2, on='key_col', how='inner')     # how: left, right, outer, inner
+pd.merge(df1, df2, left_on='lkey_col', right_on='rkey_col')
 ```
 
 ### Missing Value
