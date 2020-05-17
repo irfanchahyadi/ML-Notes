@@ -87,11 +87,23 @@ from bs4 import BeautifulSoup           # tool for scrape web page
 ### Input Output
 Create DataFrame from list / dict.
 ```python
-a = [[1,2], [3,4], [5,6], [7,8]]
-b = {'a': [1,2,3,4], 'b': [5,6,7,8]}
-c = [0,1,2,3]                                          # for index
-df = pd.DataFrame(a, columns=list('ab'), index=c)      # from list
-df = pd.DataFrame(b)                                   # from dictionary, default index = [0,1,2,...]
+data = [{'name': 'A', 'height': 172, 'weight': 78},
+        {'name': 'B', 'height': 168, 'weight': 75},
+        {'name': 'C', 'height': 183, 'weight': 81},
+        {'name': 'D', 'height': 175, 'weight': 77}]
+pd.DataFrame(data)                                     # from list of dict
+
+data = {'name': ['A', 'B', 'C', 'D'],
+        'height': [172, 168, 183, 175],
+        'weight': [78, 75, 81, 77]}
+pd.DataFrame(data)                                     # from dict
+
+data = [('A', 172, 78),
+        ('B', 168, 75),
+        ('C', 183, 81),
+        ('D', 175, 77)]
+columns = ['name', 'height', 'weight']
+pd.DataFrame(data, columns=columns)                    # from records
 ```
 Generate random data.
 ```python
@@ -202,6 +214,7 @@ df[(df.col1 == 'abc') & (df.col2 > 50)]  # conditional filter, use &(and), |(or)
 df[df.col1.isna()]                       # filter by col1 is na
 df[df.col1.isnull()]                     # filter by col1 is null, otherwise use .notnull()
 df[df.col1.isin(['a','b'])]              # filter by col1 is in list
+df[df.col1.between(70, 80)]              # filter by col1 value between 2 values
 df.filter(regex = 'pattern')             # filter by regex pattern, see misc
 for idx, row in df.iterrows():           # iterate dataframe by rows
     print(row['col1'])                   # return index and series of row
@@ -231,7 +244,8 @@ df.drop_duplicates(subset='col1', keep='first', inplace=True)     # drop duplica
 ```python
 df.sum()                           # use sum, count, median, min, mean, var, std, nunique, quantile([0.25,0.75])
 df.groupby(['col1']).size()        # group by col1
-df.groupby(df.col1).TargetCol.agg([np.mean, 'count'])     # multi aggregate function on group by
+df.groupby(df.col1).TargetCol.agg([np.mean, 'count'])     # multi aggregate function on 1 column
+df.groupby('col1').agg({'col2': 'count', 'col3': 'mean'}) # multi aggregate function on multi columns
 df.pivot(index='col1', columns='col2', values='col3')     # reshape to pivot, error when duplicate
 df.pivot_table(index='col1', columns='col2', values='col3', aggfunc='sum')     # pivot table, like excel
 flat = pd.DataFrame(df.to_records())            # flatten multiindex dataframe
@@ -545,6 +559,7 @@ s.find('abc')          # return index where substring 'abc' found in s
 'abcd: {}'.format(x)   # replace {} with value of x, use {:,} for thousand separator, {:.2%} for 2 decimal
 s.strip()              # return removed leading and trailing space, also use lstrip() or rstrip()
 '1,2,3'.split(',')     # return list of ['1', '2', '3']
+','.join(['a', 'b', 'c'])  # join string, return 'a,b,c'
 ```
 List, Tuple & Set
 ```python
@@ -556,9 +571,12 @@ s[1:5]             # slice s from 1 to 5 (4 element)
 s[1:5:-1]          # slice s from 1 to 5 backwards
 s.index(3)         # return index of 3 in s
 s.append(3)        # append 3 to end of s
-s.reverse()        # reverse s, not return anything
+s.reverse()        # reverse s, not return anything, or use list(reversed(a))
+s.sort()           # sort s asc, not return anything, or use sorted(s)
 s = (1,2,3,4)      # create tuple, immutable list, or use tuple(1,2,3,4)
 s = set(1,2,3,4)   # create set, unique list
+list(map(lambda x: x*2, b))       # map list
+list(filter(lambda x: x>2, a))    # filter list
 for idx, val in enumerate(s):     # iterate over list with index
     print(idx, val)
 ```
@@ -604,11 +622,12 @@ os.listdir()          # get all filename on current directory
 .       # any character except newline
 \b      # whitespace
 \.      # dot character
-+       # match 1 or more
-*       # match 0 or 1
++       # match 1 or more, use +? for non-greedy
+*       # match 0 or more, use *? for non-greedy
 ?       # match 0 or 1
 ^       # start string
 $       # end string
+()      # capturing group, use (?:) for non-capturing group
 {}      # expect 1-3, ex \d{3} expect 3 digit number, \d{1,3} expect 1-3 digit number
 []      # range, ex [A-Z] all capital letter, [abcd] letter a, b, c, d, [^abc] letter NOT a, b, c
 |       # either or, ex \d{1,4}|[A-z]{4,10} expect 1-4 digit number or 4-10 character word
